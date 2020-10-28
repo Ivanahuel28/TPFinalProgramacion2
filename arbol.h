@@ -11,7 +11,7 @@ void postorder(nodoArbol * arbol);
 
 nodoArbol * buscar(nodoArbol * arbol,stDatos dato);
 int contarTerminales(nodoArbol * arbol);
-nodoArbol * buscarNodo(nodoArbol * arbol,stDatos dato);
+nodoArbol * buscarNodoDiferido(nodoArbol * arbol,stDatos dato);
 nodoArbol * arr2tree(nodoArbol * arbol,int v,stDatos arr[v]);
 
 nodoArbol * borrarNodo(nodoArbol * arbol,stDatos dato);

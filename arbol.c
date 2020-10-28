@@ -1,10 +1,23 @@
 #include "arbol.h"
 
+/*************************************************************//**
+*
+* \brief Inicializa el arbol
+* \return nodoArbol * NULL
+*
+*****************************************************************/
 nodoArbol * inicArbol()
 {
     return NULL;
 }
 
+/*************************************************************//**
+*
+* \brief genera un nodo y retorna su puntero
+* \param dato con el/los cuales generar el nodo del arbol
+* \return nodoArbol * puntero al nodo
+*
+*****************************************************************/
 nodoArbol * crearNodoArbol(stDatos dato)
 {
     nodoArbol * aux = (nodoArbol * ) malloc(sizeof( nodoArbol ) );
@@ -15,6 +28,14 @@ nodoArbol * crearNodoArbol(stDatos dato)
     return aux;
 }
 
+/*************************************************************//**
+*
+* \brief inserta el dato recibido en el arbol
+* \param nodoArbol * puntero a la raiz del arbol
+* \param stDatos dato dato a insertar en el arbol
+* \return nodoArbol* nodo del arbol
+*
+*****************************************************************/
 nodoArbol * insertar(nodoArbol * arbol, stDatos dato)
 {
     if( arbol )
@@ -36,6 +57,13 @@ nodoArbol * insertar(nodoArbol * arbol, stDatos dato)
     return arbol;
 }
 
+/*************************************************************//**
+*
+* \brief Muestra el contanido del arbol con recorrido preorder
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return void
+*
+*****************************************************************/
 void preorder(nodoArbol * arbol)
 {
     if(arbol != NULL)
@@ -46,6 +74,13 @@ void preorder(nodoArbol * arbol)
     }
 }
 
+/*************************************************************//**
+*
+* \brief Muestra el contanido del arbol con recorrido inorder
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return void
+*
+*****************************************************************/
 void inorder(nodoArbol * arbol)
 {
     if(arbol != NULL)
@@ -56,6 +91,13 @@ void inorder(nodoArbol * arbol)
     }
 }
 
+/*************************************************************//**
+*
+* \brief Muestra el contanido del arbol con recorrido postorder
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return void
+*
+*****************************************************************/
 void postorder(nodoArbol * arbol)
 {
     if(arbol != NULL)
@@ -66,6 +108,14 @@ void postorder(nodoArbol * arbol)
     }
 }
 
+/*************************************************************//**
+*
+* \brief busca un nodo por el mismo parametro en el que se ordenó el arbol
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \param stDatos dato -  dato a buscar
+* \return nodoArbol * rta puntero al nodo buscado
+*
+*****************************************************************/
 nodoArbol * buscar(nodoArbol * arbol,stDatos dato)
 {
     nodoArbol * rta=NULL;
@@ -92,6 +142,13 @@ nodoArbol * buscar(nodoArbol * arbol,stDatos dato)
     return rta;
 }
 
+/*************************************************************//**
+*
+* \brief cuenta las terminales (u hojas del arbol)
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return int cantidad de hojas
+*
+*****************************************************************/
 int contarTerminales(nodoArbol * arbol)
 {
     int retorno = 0;
@@ -112,22 +169,30 @@ int contarTerminales(nodoArbol * arbol)
     return retorno;
 }
 
-nodoArbol * buscarNodo(nodoArbol * arbol,stDatos dato)
+/*************************************************************//**
+*
+* \brief busca un nodo por el mismo parametro DISTINTO al que se ordenó el arbol
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \param stDatos dato -  dato a buscar
+* \return nodoArbol * rta puntero al nodo buscado
+*
+*****************************************************************/
+nodoArbol * buscarNodoDiferido(nodoArbol * arbol,stDatos dato)
 {
     nodoArbol * retorno = NULL;
 
     if (arbol)
     {
-        if (arbol->dato.entero == dato.entero)
+        if (arbol->dato.letra == dato.letra)
         {
             retorno = arbol;
         }
         else
         {
-            retorno = buscarNodo(arbol->izq,numero);
+            retorno = buscarNodo(arbol->izq,dato);
             if ( !retorno )
             {
-                retorno = buscarNodo(arbol->der,numero);
+                retorno = buscarNodo(arbol->der,dato);
             }
         }
     }
@@ -135,6 +200,15 @@ nodoArbol * buscarNodo(nodoArbol * arbol,stDatos dato)
     return retorno;
 }
 
+/*************************************************************//**
+*
+* \brief copia el contenido del arreglo en el arbol
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \param int v - cantidad de validos del arreglo
+* \param stDatos arr[v] - arreglo
+* \return nodoArbol * puntero al arbol cargado
+*
+*****************************************************************/
 nodoArbol * arr2tree(nodoArbol * arbol,int v,stDatos arr[v])
 {
     int pos,temp;
@@ -153,6 +227,14 @@ nodoArbol * arr2tree(nodoArbol * arbol,int v,stDatos arr[v])
     return arbol;
 }
 
+/*************************************************************//**
+*
+* \brief busca un nodo y lo borra
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \param stDatos dato -  dato a borrar
+* \return nodoArbol * nuevo nodo raiz del arbol
+*
+*****************************************************************/
 nodoArbol * borrarNodo(nodoArbol * arbol,stDatos dato)
 {
     if ( arbol )
@@ -196,6 +278,13 @@ nodoArbol * borrarNodo(nodoArbol * arbol,stDatos dato)
     return arbol;
 }
 
+/*************************************************************//**
+*
+* \brief busca y retorna el nodo mas a la derecha del arbol
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return nodoArbol * nodo mas a la derecha
+*
+*****************************************************************/
 nodoArbol * NMD(nodoArbol * arbol)
 {
     if (arbol->der)
@@ -206,6 +295,13 @@ nodoArbol * NMD(nodoArbol * arbol)
     return arbol;
 }
 
+/*************************************************************//**
+*
+* \brief busca y retorna el nodo mas a la izq del arbol
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return nodoArbol * nodo mas a la izq
+*
+*****************************************************************/
 nodoArbol * NMI(nodoArbol * arbol)
 {
 
