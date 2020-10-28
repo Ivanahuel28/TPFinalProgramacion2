@@ -15,7 +15,6 @@ void agregar(Fila* fila, Dato dato);
 Dato primero(Fila* fila);
 Dato extraer(Fila* fila);
 int filaVacia(Fila* fila);
-int filaVaciaPro(Fila* fila);
 void muestraFila(Fila* fila);
 
 

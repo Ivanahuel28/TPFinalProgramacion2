@@ -18,15 +18,6 @@ void agregar(Fila* fila, Dato dato){
 }
 
 Dato primero(Fila* fila){
-    Dato dato;
-    if(fila->inicio){
-        dato = verPrimeroDoble(fila->inicio);
-    }
-
-    return dato;
-}
-
-Dato primeroPro(Fila* fila){
     return verPrimeroDoble(fila->inicio);
 }
 
@@ -43,15 +34,7 @@ Dato extraer(Fila* fila){
 }
 
 int filaVacia(Fila* fila){
-    int resp=0;
-    if(!fila->inicio){   /// if(fila->inicio == NULL)
-        resp=1;
-    }
-    return resp;
-}
-
-int filaVaciaPro(Fila* fila){
-    return (fila->inicio)?0:1;
+    return (fila->inicio) ? 0 : 1;
 }
 
 void muestraFila(Fila* fila){
