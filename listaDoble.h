@@ -9,6 +9,8 @@ typedef struct _dato{
     int id;
 }Dato;
 
+void mostrarDato(Dato dato);
+
 typedef struct _nodoDoble{
     Dato dato;
     struct _nodoDoble *anterior;
