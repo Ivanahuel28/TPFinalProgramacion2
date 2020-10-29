@@ -1,5 +1,9 @@
 #include "listaDoble.h"
 
+void mostrarDato(Dato dato) {
+    printf("Dato: %d \n", dato.id);
+}
+
 nodoDoble* inicListaDoble(){
     return NULL;
 }
@@ -8,7 +12,7 @@ nodoDoble* inicListaDoble(){
  * \brief Crea un nodo doble
  * \param Dato Dato del que se quiere crear un nodo
  **************************************************************************/
-nodoDoble* crearnodoDoble(Dato dato){
+nodoDoble* crearNodoDoble(Dato dato){
     nodoDoble* nuevo = (nodoDoble*) malloc(sizeof(nodoDoble));
 
     nuevo->dato = dato;
@@ -67,7 +71,7 @@ nodoDoble* agregarAlFinalDoble(nodoDoble* lista, nodoDoble* nuevo){
  **************************************************************************/
 void muestraNodoDoble(nodoDoble* lista){
     printf("\n nodo: %p - nodo->anterior: %p - nodo->siguiente: %p",  lista, lista->anterior, lista->siguiente);
-    //muestraDato(lista->dato); CAMBIAR POR METODO DE MOSTRAR SEGUN TIPO DE DATO
+    mostrarDato(lista->dato); //CAMBIAR POR METODO DE MOSTRAR SEGUN TIPO DE DATO
 }
 
 /***************************************************************************
@@ -76,7 +80,7 @@ void muestraNodoDoble(nodoDoble* lista){
  **************************************************************************/
 void muestraListaDoble(nodoDoble* lista){
     nodoDoble* seg = lista;
-    while(seg){  
+    while(seg){
         muestraNodoDoble(seg);
         seg = seg->siguiente;
     }
@@ -94,7 +98,7 @@ Dato verPrimeroDoble(nodoDoble* lista){
 /***************************************************************************
  * \brief Borra el primer nodo de una lista de nodos dobles
  * \param nodoDoble Nodo lista al que eliminar primer nodo
- * \return nodoDoble 
+ * \return nodoDoble
  **************************************************************************/
 nodoDoble* borrarPrimeroDoble(nodoDoble* lista){
     if(lista!=NULL){
