@@ -202,29 +202,54 @@ nodoArbol * buscarNodoDiferido(nodoArbol * arbol,stDatos dato)
 
 /*************************************************************//**
 *
-* \brief copia el contenido del arreglo en el arbol
+* \brief copia el contenido del arreglo en el arbol ordenando por apellido
 * \param nodoArbol * arbol - puntero a la raiz del arbol
-* \param int v - cantidad de validos del arreglo
 * \param stDatos arr[v] - arreglo
+* \param int base - subindice en que inicia el arreglo (a la llamada va 0)
+* \param int base - subindice en que termina el arreglo (a la llamada va validos-1)
 * \return nodoArbol * puntero al arbol cargado
 *
 *****************************************************************/
-nodoArbol * arr2tree(nodoArbol * arbol,int v,stDatos arr[v])
+nodoArbol * arr2treeXApellido(nodoArbol * arbol,stPersona arr[],int base,int tope)
 {
-    int pos,temp;
+    int medio;
 
-    for( int i=0 ; i<v ; i++ )
+    if ( !(base<tope))
     {
-        pos = rand()%(v-i);
+        medio = (base+tope)/2;
+        arbol = insertarXApellido(arbol,arr[medio]);
 
-        temp = arr[pos];
-        arr[pos] = arr[v-i-1];
-        arr[v-i-1] = temp;
-
-        arbol = insertar(arbol,temp);
+        arbol = arr2treeXApellido(arbol,arr,base,medio-1);
+        arbol = arr2treeXApellido(arbol,arr,medio+1,tope);
     }
 
     return arbol;
+}
+
+/*************************************************************//**
+*
+* \brief copia el contenido del arreglo en el arbol ordenando por apellido
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return int contador -  cantidad de elementos del arbol
+*
+*****************************************************************/
+int contarElementos(nodoArbol * arbol)
+{
+    int contador = 0;
+
+    if (arbol)
+    {
+        contador += 1 + contarElementos(arbol->izq) + contarElementos(arbol->der);
+    }
+
+    return contador;
+}
+
+int contarNiveles(nodoArbol * arbol)
+{
+    int nivel = 0;
+
+    return nivel;
 }
 
 /*************************************************************//**
