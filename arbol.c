@@ -144,33 +144,6 @@ nodoArbol * buscar(nodoArbol * arbol,stDatos dato)
 
 /*************************************************************//**
 *
-* \brief cuenta las terminales (u hojas del arbol)
-* \param nodoArbol * arbol - puntero a la raiz del arbol
-* \return int cantidad de hojas
-*
-*****************************************************************/
-int contarTerminales(nodoArbol * arbol)
-{
-    int retorno = 0;
-
-    if (arbol)
-    {
-        if ( !(arbol->izq) && !(arbol->der) )
-        {
-            retorno += 1;
-        }
-        else
-        {
-            retorno += contarTerminales(arbol->izq);
-            retorno += contarTerminales(arbol->der);
-        }
-    }
-
-    return retorno;
-}
-
-/*************************************************************//**
-*
 * \brief busca un nodo por el mismo parametro DISTINTO al que se ordenó el arbol
 * \param nodoArbol * arbol - puntero a la raiz del arbol
 * \param stDatos dato -  dato a buscar
@@ -204,32 +177,6 @@ nodoArbol * buscarNodoDiferido(nodoArbol * arbol,stDatos dato)
 *
 * \brief copia el contenido del arreglo en el arbol ordenando por apellido
 * \param nodoArbol * arbol - puntero a la raiz del arbol
-* \param stDatos arr[v] - arreglo
-* \param int base - subindice en que inicia el arreglo (a la llamada va 0)
-* \param int base - subindice en que termina el arreglo (a la llamada va validos-1)
-* \return nodoArbol * puntero al arbol cargado
-*
-*****************************************************************/
-nodoArbol * arr2treeXApellido(nodoArbol * arbol,stPersona arr[],int base,int tope)
-{
-    int medio;
-
-    if ( !(base<tope))
-    {
-        medio = (base+tope)/2;
-        arbol = insertarXApellido(arbol,arr[medio]);
-
-        arbol = arr2treeXApellido(arbol,arr,base,medio-1);
-        arbol = arr2treeXApellido(arbol,arr,medio+1,tope);
-    }
-
-    return arbol;
-}
-
-/*************************************************************//**
-*
-* \brief copia el contenido del arreglo en el arbol ordenando por apellido
-* \param nodoArbol * arbol - puntero a la raiz del arbol
 * \return int contador -  cantidad de elementos del arbol
 *
 *****************************************************************/
@@ -245,9 +192,62 @@ int contarElementos(nodoArbol * arbol)
     return contador;
 }
 
+/*************************************************************//**
+*
+* \brief cuenta las terminales (u hojas del arbol)
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return int cantidad de hojas
+*
+*****************************************************************/
+int contarTerminales(nodoArbol * arbol)
+{
+    int retorno = 0;
+
+    if (arbol)
+    {
+        if ( !(arbol->izq) && !(arbol->der) )
+        {
+            retorno += 1;
+        }
+        else
+        {
+            retorno += contarTerminales(arbol->izq);
+            retorno += contarTerminales(arbol->der);
+        }
+    }
+
+    return retorno;
+}
+
+/*************************************************************//**
+*
+* \brief cuenta los niveles (o altura) del arbol
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \return int cantidad de niveles
+*
+*****************************************************************/
 int contarNiveles(nodoArbol * arbol)
 {
     int nivel = 0;
+
+    if (arbol)
+    {
+        if ( (arbol->izq) || (arbol->der) )
+        {
+            nivel += 1;
+            int nivelIzq = contarNiveles(arbol->izq);
+            int nivelDer = contarNiveles(arbol->der);
+
+            if ( nivelIzq < nivelDer)
+            {
+                nivel += nivelDer;
+            }
+            else
+            {
+                nivel += nivelIzq;
+            }
+        }
+    }
 
     return nivel;
 }
@@ -338,3 +338,31 @@ nodoArbol * NMI(nodoArbol * arbol)
 
     return arbol;
 }
+
+/*************************************************************//**
+*
+* \brief copia el contenido del arreglo en el arbol ordenando por int
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \param stDatos arr[v] - arreglo
+* \param int base - subindice en que inicia el arreglo (a la llamada va 0)
+* \param int base - subindice en que termina el arreglo (a la llamada va validos-1)
+* \return nodoArbol * puntero al arbol cargado
+*
+*****************************************************************/
+nodoArbol * arr2treeXApellido(nodoArbol * arbol,stDatos arr[],int base,int tope)
+{
+    int medio;
+
+    if ( !(base<tope) )
+    {
+        medio = (base+tope)/2;
+        arbol = insertar(arbol,arr[medio]);
+
+        arbol = arr2treeXApellido(arbol,arr,base,medio-1);
+        arbol = arr2treeXApellido(arbol,arr,medio+1,tope);
+    }
+
+    return arbol;
+}
+
+
