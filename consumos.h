@@ -8,7 +8,6 @@
 
 #define MAX_CONSUMOS 9999
 #define MAX_DATOS 9999
-#define ESC 27
 
 typedef struct{
     int id;   /// campo unico y autoincremental
@@ -25,3 +24,6 @@ void mostrarFiltrosConsumos();
 void mostrarModificacionConsumo(stConsumo c);
 
 stConsumo consumoRandom(int idCliente);
+stConsumo cargaManualUnConsumo();
+void formularioModificacionConsumo(stConsumo c);
+void bajaConsumo(stConsumo &c);
