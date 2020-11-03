@@ -99,7 +99,7 @@ stConsumo cargaManualUnConsumo() {
     scanf("%d", &c.datosConsumidos);
 
     c.idCliente = obtenerIdClientePorNro(nroCliente);
-    c.baja = 0;
+    c.baja = false;
     return c;
 }
 
@@ -208,5 +208,5 @@ void formularioModificacionConsumo(stConsumo c){
 * \param stConsumo consumo a dar de baja
 **************************************************************************/
 void bajaConsumo(stConsumo &c) {
-    c.baja = 1;
+    c.baja = true;
 }
