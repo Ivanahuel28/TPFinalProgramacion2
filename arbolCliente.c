@@ -56,7 +56,26 @@ nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato)
 
     return arbol;
 }
-
+/*************************************************************//**
+*
+* \brief Agrega un nodo al arbol
+* \param nodoArbol* puntero a la raiz del arbol
+* \param nodoArbol* puntero al nodo a agregar
+* \return nodoArbol* nodo del arbol
+*
+*****************************************************************/
+nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo){
+    if(!arbol){
+        arbol = nuevo;
+    }else{
+        if(nuevo->dato > arbol->dato){
+            arbol->der = agregarNodoArbol(arbol->der, nuevo);
+        }else{
+            arbol->izq = agregarNodoArbol(arbol->izq, nuevo);
+        }
+    }
+    return arbol;
+}
 /*************************************************************//**
 *
 * \brief muestra el contenido del arbol de cliente
