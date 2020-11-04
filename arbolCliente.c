@@ -42,11 +42,11 @@ nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato)
     {
         if( dato.nroCliente > arbol->dato.nroCliente )
         {
-            arbol->der = insertar(arbol->der, dato);
+            arbol->der = insertarXNroCliente(arbol->der, dato);
         }
         else
         {
-            arbol->izq = insertar(arbol->izq, dato);
+            arbol->izq = insertarXNroCliente(arbol->izq, dato);
         }
     }
     else
@@ -56,6 +56,24 @@ nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato)
 
     return arbol;
 }
+
+nodoArbol* archivoCliente2arbol(char nombreArchivo[], nodoArbol* arbol){
+    stCliente c;
+
+    FILE *pArchCliente = fopen(nombreArchivo,"rb");
+
+    if(pArchCliente)
+    {
+        while(fread(&c,sizeof(stCliente),1,pArchCliente) > 0)
+        {
+            arbol = insertarXNroCliente(arbol, c); 
+        }
+        fclose(pArchCliente);
+    }
+
+    return arbol;
+}
+
 /*************************************************************//**
 *
 * \brief Agrega un nodo al arbol
