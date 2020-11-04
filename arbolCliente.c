@@ -42,11 +42,11 @@ nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato)
     {
         if( dato.nroCliente > arbol->dato.nroCliente )
         {
-            arbol->der = insertar(arbol->der, dato);
+            arbol->der = insertarXNroCliente(arbol->der, dato);
         }
         else
         {
-            arbol->izq = insertar(arbol->izq, dato);
+            arbol->izq = insertarXNroCliente(arbol->izq, dato);
         }
     }
     else
@@ -56,6 +56,71 @@ nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato)
 
     return arbol;
 }
+
+nodoArbol* archivoCliente2arbol(char nombreArchivo[], nodoArbol* arbol){
+    stCliente c;
+
+    FILE *pArchCliente = fopen(nombreArchivo,"rb");
+
+    if(pArchCliente)
+    {
+        while(fread(&c,sizeof(stCliente),1,pArchCliente) > 0)
+        {
+            arbol = insertarXNroCliente(arbol, c); 
+        }
+        fclose(pArchCliente);
+    }
+
+    return arbol;
+}
+
+nodoArbol* archivoConsumo2arbol(char nombreArchivo[], nodoArbol* arbol){
+    stConsumo c;
+
+    FILE *pArchConsumos = fopen(nombreArchivo,"rb");
+
+    if(pArchConsumos)
+    {
+        while(fread(&c,sizeof(stCliente),1,pArchConsumos) > 0)
+        {
+            arbol = insertarConsumoXIdCliente(arbol, c); 
+        }
+        fclose(pArchConsumos);
+    }
+
+    return arbol;
+}
+
+nodoArbol* cargarArbolArchivos(char nombreArchivoCliente[], char nombreArchivoConsumo[] ,nodoArbol* arbol){
+    arbol = archivoCliente2arbol(nombreArchivoCliente, arbol);
+    arbol = archivoConsumo2arbol(nombreArchivoConsumo, arbol);
+    return arbol;
+}
+
+/*************************************************************//**
+*
+* \brief busca un nodo por Nro de Cliente cuando no fue cargado bajo este parametro
+* \param nodoArbol * arbol - puntero a la raiz del arbol
+* \param int nroCliente -  Nro de Cliente a buscar
+* \return nodoArbol * rta puntero al nodo buscado
+*
+*****************************************************************/
+nodoArbol* insertarConsumoXIdCliente(nodoArbol * arbol, stConsumo consumo)
+{
+    if (arbol)
+    {
+        if (arbol->dato.idCliente == consumo.idCliente)
+        {
+            arbol->consumos = agregarEnOrden(arbol->consumos, crearNodo(consumo)); //inserto consumo
+        }
+        else
+        {
+            insertarConsumoXIdCliente(arbol->izq,consumo);
+            insertarConsumoXIdCliente(arbol->der,consumo);
+        }
+    }
+}
+
 /*************************************************************//**
 *
 * \brief Agrega un nodo al arbol
