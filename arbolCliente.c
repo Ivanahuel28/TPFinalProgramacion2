@@ -339,7 +339,7 @@ nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente)
         }
         else
         {
-            if ( arbol->dato < dato)
+            if ( arbol->dato < nroCliente)
             {
                 arbol->der = borrarNodo(arbol->der,nroCliente);
             }
