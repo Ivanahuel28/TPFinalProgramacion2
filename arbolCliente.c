@@ -66,7 +66,7 @@ nodoArbol* archivoCliente2arbol(char nombreArchivo[], nodoArbol* arbol){
     {
         while(fread(&c,sizeof(stCliente),1,pArchCliente) > 0)
         {
-            arbol = insertarXNroCliente(arbol, c); 
+            arbol = insertarXNroCliente(arbol, c);
         }
         fclose(pArchCliente);
     }
@@ -83,7 +83,7 @@ nodoArbol* archivoConsumo2arbol(char nombreArchivo[], nodoArbol* arbol){
     {
         while(fread(&c,sizeof(stCliente),1,pArchConsumos) > 0)
         {
-            arbol = insertarConsumoXIdCliente(arbol, c); 
+            arbol = insertarConsumoXIdCliente(arbol, c);
         }
         fclose(pArchConsumos);
     }
@@ -133,7 +133,7 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo){
     if(!arbol){
         arbol = nuevo;
     }else{
-        if(nuevo->dato > arbol->dato){
+        if(nuevo->dato.nroCliente > arbol->dato.nroCliente){
             arbol->der = agregarNodoArbol(arbol->der, nuevo);
         }else{
             arbol->izq = agregarNodoArbol(arbol->izq, nuevo);
@@ -153,7 +153,7 @@ void mostrarArbolClientes(nodoArbol * arbol)
     if (arbol)
     {
         mostrarArbolClientes(arbol->izq);
-        mostrarCliente(arbol->dato);// adaptar nombre de la funcion
+        //mostrarCliente(arbol->dato);// adaptar nombre de la funcion
         mostrarArbolClientes(arbol->der);
     }
 }
@@ -180,11 +180,11 @@ nodoArbol * buscarXNroCliente(nodoArbol * arbol,int nroCliente)
         {
             if(arbol->dato.nroCliente < nroCliente)
             {
-                rta = buscar(arbol->der,nroCliente);
+                rta = buscarXNroCliente(arbol->der,nroCliente);
             }
             else
             {
-                rta = buscar(arbol->izq,nroCliente);
+                rta = buscarXNroCliente(arbol->izq,nroCliente);
             }
         }
     }
@@ -206,16 +206,16 @@ nodoArbol * buscarXNroClienteDiferido(nodoArbol * arbol,int nroCliente)
 
     if (arbol)
     {
-        if (arbol->dato.letra == dato.letra)
+        if (arbol->dato.nroCliente == nroCliente)
         {
             retorno = arbol;
         }
         else
         {
-            retorno = buscarNodo(arbol->izq,dato);
+            retorno = buscarXNroClienteDiferido(arbol->izq,nroCliente);
             if ( !retorno )
             {
-                retorno = buscarNodo(arbol->der,dato);
+                retorno = buscarXNroClienteDiferido(arbol->der,nroCliente);
             }
         }
     }
@@ -314,13 +314,13 @@ nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente)
 {
     if ( arbol )
     {
-        if ( arbol->dato.entero == nroCliente )
+        if ( arbol->dato.nroCliente == nroCliente )
         {
             if ( arbol->izq )
             {
                 nodoArbol * masDer = NMD(arbol->izq);
                 arbol->dato = masDer->dato;
-                arbol->izq = borrarNodo(arbol->izq,masDer->dato);
+                arbol->izq = borrarXNroCliente(arbol->izq,masDer->dato.nroCliente);
             }
             else
             {
@@ -328,7 +328,7 @@ nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente)
                 {
                     nodoArbol * masIzq = NMI(arbol->der);
                     arbol->dato = masIzq->dato;
-                    arbol->der = borrarNodo(arbol->der,masIzq->dato);
+                    arbol->der = borrarXNroCliente(arbol->der,masIzq->dato.nroCliente);
                 }
                 else
                 {
@@ -339,13 +339,13 @@ nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente)
         }
         else
         {
-            if ( arbol->dato < nroCliente)
+            if ( arbol->dato.nroCliente < nroCliente)
             {
-                arbol->der = borrarNodo(arbol->der,nroCliente);
+                arbol->der = borrarXNroCliente(arbol->der,nroCliente);
             }
             else
             {
-                arbol->izq = borrarNodo(arbol->izq,nroCliente);
+                arbol->izq = borrarXNroCliente(arbol->izq,nroCliente);
             }
         }
     }

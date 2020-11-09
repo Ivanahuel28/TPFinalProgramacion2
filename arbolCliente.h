@@ -1,8 +1,11 @@
 #ifndef ARBOLCLIENTE_H_INCLUDED
 #define ARBOLCLIENTE_H_INCLUDED
-/*
+#include <stdio.h>
+#include <stdlib.h>
+#include "listaConsumo.h"
+
 typedef struct {
-    int id; /// campo único y autoincremental
+    int idCliente; /// campo único y autoincremental
     int nroCliente;
     char nombre[30];
     char apellido[30];
@@ -12,7 +15,7 @@ typedef struct {
     int movil;
     int baja; /// 0 si está activo - 1 si está eliminado
 } stCliente;
-*/
+
 typedef struct nodoArbol{
     stCliente dato;
     nodoLista* consumos;
@@ -26,6 +29,7 @@ nodoArbol * crearNodoArbol(stCliente dato);
 
 /*INSERCION*/
 nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato);
+nodoArbol* insertarConsumoXIdCliente(nodoArbol * arbol, stConsumo consumo);
 
 /*MUESTRA / RECORRIDO*/
 void mostrarArbolClientes(nodoArbol * arbol);

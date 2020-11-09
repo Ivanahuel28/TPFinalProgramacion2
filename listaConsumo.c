@@ -1,3 +1,5 @@
+#include "listaConsumo.h"
+
 nodoLista * inicLista()
 {
    return NULL;
@@ -77,7 +79,7 @@ nodoLista * borrarNodo(nodoLista* lista,nodoLista * nodo)
 {
     if ( lista )
     {
-        if ( lista == p )
+        if ( lista == nodo )
         {
             nodoLista * aux = lista;
             lista = lista->siguiente;
@@ -85,7 +87,7 @@ nodoLista * borrarNodo(nodoLista* lista,nodoLista * nodo)
         }
         else
         {
-            lista->sig = borrarNodoRec(lista->siguiente,p);
+            lista->siguiente = borrarNodo(lista->siguiente,nodo);
         }
     }
 
@@ -96,25 +98,25 @@ nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo)
 {
     if (lista)
     {
-        if (  ) /// comparar a que la fecha sea mas chica
+        if ( 1 ) /// comparar a que la fecha sea mas chica
         {
-            nuevoNodo->sig = lista;
+            nuevoNodo->siguiente = lista;
             lista = nuevoNodo;
         }
         else
         {
-            lista->sig = agregarEnOrden(lista->sig,nuevoNodo);
+            lista->siguiente = agregarEnOrden(lista->siguiente,nuevoNodo);
         }
     }
 
     return lista;
 }
 
-nodolista * borrarTodaLaLista(nodoLista * lista)
+nodoLista * borrarTodaLaLista(nodoLista * lista)
 {
     if (lista)
     {
-        lista = borrarTodaLaLista(lista->sig);
+        lista = borrarTodaLaLista(lista->siguiente);
         free(lista);
         lista = NULL;
     }
@@ -127,8 +129,13 @@ void muestraLista(nodoLista * lista)
     if (lista)
     {
         muestraNodo(lista);
-        muestraLista(lista->sig);
+        muestraLista(lista->siguiente);
     }
+}
+
+void muestraNodo(nodoLista * nodo)
+{
+    //muestraConsumo(nodo->dato);
 }
 
 nodoLista * eliminarPrimerNodo(nodoLista * lista)
