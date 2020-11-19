@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1604441885 source:c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\fechas.c
+	"fechas.h"
+
+1604441743 c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\fechas.h
+	<stdio.h>
+	<dos.h>
+	<time.h>
+	<stdlib.h>
+	"definiciones.h"
+
+1605385606 c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\definiciones.h
+
+1605392498 source:c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fechas.h"
+	"arbolCliente.h"
+
+1605391924 source:c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\arbolcliente.c
+	"arbolCliente.h"
+
+1605392498 c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\arbolcliente.h
+	<stdio.h>
+	<stdlib.h>
+	"cliente.h"
+	"listaConsumo.h"
+	"definiciones.h"
+
+1605380358 c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\listaconsumo.h
+	<stdio.h>
+	<stdlib.h>
+	"consumo.h"
+
+1604884369 source:c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\listaconsumo.c
+	"listaConsumo.h"
+
+1605380358 c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\consumo.h
+
+1605385517 c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\cliente.h
+	<stdio.h>
+	<stdlib.h>
+
+1605385778 source:c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\cliente.c
+	"cliente.h"
+
+1605380315 source:c:\users\ignacio\desktop\2 cuatrimestre\practica final\practica\consumo.c
+

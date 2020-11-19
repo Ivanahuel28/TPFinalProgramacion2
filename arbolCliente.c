@@ -1,20 +1,24 @@
 #include "arbolCliente.h"
 
+
+
+
+///////////////// FUNCIONES BASICAS /////////////////
+
 /*************************************************************//**
 *
 * \brief Inicializa el arbol
 * \return nodoArbol * NULL
 *
 *****************************************************************/
-nodoArbol * inicArbol()
-{
+nodoArbol * inicArbol() {
     return NULL;
 }
 
 /*************************************************************//**
 *
 * \brief genera un nodo y retorna su puntero
-* \param dato con el/los cuales generar el nodo del arbol
+* \param stCliente con el/los cuales generar el nodo del arbol
 * \return nodoArbol * puntero al nodo
 *
 *****************************************************************/
@@ -28,16 +32,465 @@ nodoArbol * crearNodoArbol(stCliente dato)
     return aux;
 }
 
+
+
+///////////////// FUNCIONES DE ALTA /////////////////
+
+/**************************************************************************
+* \brief Funcion que maneja la carga de clientes manuales
+* \param nodoArbol arbol de clientes al que se debe cargar el cliente
+* \return nodoArbol arbol de clientes con el cliente cargado
+**************************************************************************/
+nodoArbol* cargarClientesManual(nodoArbol* arbolClientes){
+    char opcion;
+    do{
+        stCliente c;
+        system("cls");
+        c = cargaManualUnCliente(arbolClientes);
+        agregarUnCliente(c);
+        arbolClientes = insertarXNroCliente(arbolClientes, c);
+        system("cls");
+        printf("\n\n\n (ESC) Terminar");
+        opcion = getch();
+    }while(opcion != ESC);
+    return arbolClientes;
+}
+
+
+/**************************************************************************
+* \brief Funcion de formulario para un nuevo cliente validando los datos
+* \return stCliente cliente cargado
+**************************************************************************/
+stCliente cargaManualUnCliente(nodoArbol* arbolClientes) {
+    stCliente c;
+
+    do{
+        printf("\n Ingrese el nro de Cliente......: ");
+        scanf("%d", &c.nroCliente);
+    }while(c.nroCliente < 0 || buscarXNroCliente(arbolClientes,c.nroCliente));
+
+    printf("\n Ingrese el DNI.................: ");
+    fflush(stdin);
+    gets(c.dni);
+
+    printf(" Ingrese el Nombre................: ");
+    fflush(stdin);
+    gets(c.nombre);
+
+    printf(" Ingrese el Apellido..............: ");
+    fflush(stdin);
+    gets(c.apellido);
+
+    do{
+        printf(" Ingrese el Email.................: ");
+        fflush(stdin);
+        gets(c.email);
+    }while(!validaEmail(c.email));
+
+    printf(" Ingrese el Domicilio.............: ");
+    fflush(stdin);
+    gets(c.domicilio);
+
+    printf(" Ingrese el Numero de telefono....: ");
+    fflush(stdin);
+    gets(c.movil);
+
+    c.idCliente = ultimoIdCliente() + 1;
+    c.baja = 0;
+
+    return c;
+}
+
+
+
+/**************************************************************************
+* \brief Funcion que ingresa un consumo de forma manual y lo retorna
+* \return stConsumo El consumo ingresado
+**************************************************************************/
+stConsumo cargaManualUnConsumo(nodoArbol * arbolClientes) {
+    stConsumo c;
+    int nroCliente = -1;
+    do{
+        printf("\n Ingrese el nro de Cliente......: ");
+        scanf("%d", &nroCliente);
+        nodoArbol * arbolCliente = buscarXNroCliente(arbolClientes, nroCliente);
+    }while(nroCliente < 0 || !arbolCliente);
+    do{
+        printf("\n Ingrese el Anio................: ");
+        scanf("%d", &c.anio);
+    }while(c.anio < 0 || c.anio > 2999);
+    do{
+        printf("\n Ingrese el Mes.................: ");
+        scanf("%d", &c.mes);
+    }while(c.mes < Enero || c.mes > Diciembre);
+    do{
+        printf("\n Ingrese el Dia.................: ");
+        scanf("%d", &c.dia);
+    }while(!esFechaValida(c.anio, c.mes, c.dia));
+
+
+    printf("\n Ingrese los Datos Consumidos...: ");
+    scanf("%d", &c.datosConsumidos);
+
+    c.idCliente = arbolCliente->dato.idCliente;
+    c.idConsumo = ultimoIdConsumos() + 1;
+    c.baja = 0;
+    return c;
+}
+
+/**************************************************************************
+* \brief Funcion que carga un consumo completo al archivo
+**************************************************************************/
+void controlarCargaManual(nodoArbol * arbolClientes){
+
+    stConsumo c = cargaManualUnConsumo(arbolClientes);
+    sumarONuevo(arbolClientes, c);
+
+}
+
+void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
+
+    nodoArbol * cliente = buscarXidClienteDiferido(arbolClientes, c.idCliente);
+
+    if (cliente) {
+        nodoLista * consumo = buscarConsumoXFecha(cliente->consumos, c.anio, c.mes, c.dia);
+        if(consumo){
+            consumo->dato.datosConsumidos += c.datosConsumidos;
+            modificarConsumo(consumo->dato);
+        } else {
+            agregarEnOrden(cliente->consumos, crearNodo(c));
+            agregarUnConsumo(c);
+        }
+    }
+
+}
+
+
+
+
+///////////////// FUNCIONES DE MODIFICACION /////////////////
+
+/**************************************************************************
+* \brief Funcion formulario para la modificacion de un cliente con validacion de datos
+* \param nodoArbol Arbol de clientes del que modificar el cliente
+* \param stCliente cliente a modificar
+* \return nodoArbol Arbol de clientes modificado
+**************************************************************************/
+nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes, stCliente cm){
+    char opcion;
+    do{
+        mostrarModificacion(cm);
+        fflush(stdin);
+        opcion = getch();
+        switch (opcion){
+            case Uno:{
+                int valor;
+                valor = obtenerInt();
+                if(!buscarXNroCliente(arbolClientes, valor)){
+                    cm.nroCliente = valor;
+                } else {
+                    printf("\n\n Ya existe un cliente con ese Nro Cliente! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+                    system("pause");
+                }
+                break;
+            }
+            case Dos:{
+                printf("\n Ingrese nuevo valor : ");
+                scanf("%s", &cm.nombre );
+                break;
+            }
+            case Tres:{
+                printf("\n Ingrese nuevo valor : ");
+                scanf("%s", &cm.apellido);
+                break;
+            }
+            case Cuatro:{
+                printf("\n Ingrese nuevo valor : ");
+                scanf("%s", &cm.dni);
+                break;
+            }
+            case Cinco:{
+                char valor[MAX_MAIL];
+                printf("\n Ingrese nuevo valor : ");
+                scanf("%s", &valor);
+                if(validaEmail(valor)){
+                    strcpy(&cm.email, valor);
+                } else {
+                    printf("\n\n Correo invalido! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+                    system("pause");
+                }
+                break;
+            }
+            case Seis:{
+                printf("\n Ingrese nuevo valor : ");
+                scanf("%s", &cm.domicilio);
+                break;
+            }
+            case 55:{
+                printf("\n Ingrese nuevo valor : ");
+                scanf("%s", &cm.movil);
+                break;
+            }
+            case 56:{
+                int valor;
+                valor = obtenerInt();
+                if(valor == 0 || valor == 1) {
+                    cm.baja = valor;
+                } else {
+                    printf("\n\n Valor incorrecto, solo: ( 0 / 1 )! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+                    system("pause");
+                }
+                break;
+            }
+        }
+    }while (opcion != ESC && opcion != 'c');
+    if(opcion == 'c'){
+        modificarClienteArchivo(cm);
+        arbolClientes = modificarClienteArbol(arbolClientes, cm);
+    }
+    return arbolClientes;
+}
+
+/**************************************************************************
+* \brief Modifica un nodo cliente en el arbol de clientes
+* \param nodoArbol Arbol de clientes del que modificar el cliente
+* \param stCliente cliente a modificar
+* \return nodoArbol Arbol de clientes modificado
+**************************************************************************/
+nodoArbol* modificarClienteArbol(nodoArbol* arbolClientes, stCliente c){
+
+    nodoArbol* aModificar = buscarXidClienteDiferido(arbolClientes, c.idCliente);
+    nodoArbol* modificado = crearNodoArbol(c);
+    modificado->consumos = aModificar->consumos;
+    arbolClientes = borrarXNroCliente(arbolClientes, aModificar->dato.nroCliente);
+    arbolClientes = agregarNodoArbol(arbolClientes, modificado);
+
+    return arbolClientes;
+}
+
+
+/**************************************************************************
+* \brief Funcion que controla la modificacion de un cliente
+* \param nodoArbol Arbol de clientes del que modificar el cliente
+**************************************************************************/
+nodoArbol* controlarModificacionCliente(nodoArbol* arbolClientes){
+    nodoArbol* nodoCliente;
+    int nroCliente = -1;
+    printf("Ingrese el Nro Cliente a modificar : ");
+    scanf("%d", &nroCliente);
+    nodoCliente = buscarXNroCliente(arbolClientes, nroCliente);
+    if(nodoCliente){
+       arbolClientes = formularioModificacionCliente(arbolClientes, nodoCliente->dato);
+    } else {
+        printf("El Nro Cliente ingresado no existe en el registro");
+        system("pause");
+    }
+
+    return arbolClientes;
+}
+
+
+/**************************************************************************
+* \brief Funcion que controla la modificacion de un consumo
+**************************************************************************/
+void controlarModificacionConsumo(nodoArbol* arbolClientes){
+    nodoArbol* nodoCliente;
+    int nroCliente = -1;
+    printf("Ingrese el Nro Cliente del consumo a modificar : ");
+    scanf("%d", &nroCliente);
+    nodoCliente = buscarXNroCliente(arbolClientes, nroCliente);
+
+    if (nodoCliente){
+
+        int anio = 0, mes = 0, dia = 0;
+        printf("\n Ingrese anio: --/--/----");
+        scanf("%d", &anio);
+        printf("\n Ingrese mes : --/--/%d", anio);
+        scanf("%d", &mes);
+        printf("\n Ingrese dia : --/%d/%d", mes, anio);
+        scanf("%d", &dia);
+
+        nodoLista * consumo = buscarConsumoXFecha(nodoCliente->consumos, anio, mes, dia);
+        if (consumo) {
+            formularioModificacionConsumo(nodoCliente->consumos, consumo);
+            //modificamos en archivo
+        } else {
+            printf("El consumo ingresado no existe en el registro");
+            system("pause");
+        }
+
+    } else {
+        printf("El Nro Cliente ingresado no existe en el registro");
+        system("pause");
+    }
+
+}
+
+
+/**************************************************************************
+* \brief Obtiene y valida los datos para la modificacion de un consumo
+* \param stConsumo consumo a modificar
+**************************************************************************/
+nodoLista * formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoLista * listaConsumos ,nodoLista * consumo){
+    stConsumo cm = consumo->dato;
+    char opcion;
+    do{
+        mostrarModificacionConsumo(cm);
+        fflush(stdin);
+        opcion = getch();
+        switch(opcion){
+            case Uno:{
+                int valor;
+                valor = obtenerInt();
+                if(valor > 0 && valor < 2999){
+                    cm.anio = valor;
+                } else {
+                    printf("\n\n A�o incorrecto! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+                    system("pause");
+                }
+                break;
+            }
+            case Dos:{
+                int valor;
+                valor = obtenerInt();
+                if(valor > 0 && valor < 13){
+                    cm.mes = valor;
+                } else {
+                    printf("\n\n Mes incorrecto! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+                    system("pause");
+                }
+                break;
+            }
+            case Tres:{
+                int valor;
+                valor = obtenerInt();
+                if(esFechaValida(cm.anio, cm.mes, valor)){
+                    cm.dia = valor;
+                } else {
+                    printf("\n\n Dia incorrecto! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+                    system("pause");
+                }
+                break;
+            }
+            case Cuatro:{
+                int valor;
+                valor = obtenerInt();
+                cm.datosConsumidos = valor;
+                break;
+            }
+            case Cinco:{
+                int valor;
+                valor = obtenerInt();
+                if(valor == 0 || valor == 1) {
+                    cm.baja = valor;
+                } else {
+                    printf("\n\n Valor incorrecto, solo: ( 0 / 1 )! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+                    system("pause");
+                }
+                break;
+            }
+        }
+
+    }while(opcion != ESC && opcion != 'c');
+
+    if(opcion == 'c'){
+        //volver a checkear fecha por si modifico mes/a�o despues del dia
+        if(esFechaValida(cm.anio, cm.mes, cm.dia)){
+            //esta todo ok, lo borro y lo doy de alta
+            listaConsumos = borrarNodo(listaConsumos, consumo);
+            sumarONuevo(arbolClientes, cm);
+        } else {
+            printf("\n\n Error, fecha erronea! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
+            system("pause");
+        }
+    }
+
+    return listaConsumos;
+}
+
+
+
+
+
+///////////////// FUNCIONES DE BAJA /////////////////
+
+void controlarBajaConsumo(nodoArbol * arbolClientes) {
+
+    nodoArbol* nodoCliente;
+    int nroCliente = -1;
+    printf("Ingrese el Nro Cliente del consumo a dar de baja : ");
+    scanf("%d", &nroCliente);
+    nodoCliente = buscarXNroCliente(arbolClientes, nroCliente);
+
+    if (nodoCliente){
+
+        int anio = 0, mes = 0, dia = 0;
+        printf("\n Ingrese anio: --/--/----");
+        scanf("%d", &anio);
+        printf("\n Ingrese mes : --/--/%d", anio);
+        scanf("%d", &mes);
+        printf("\n Ingrese dia : --/%d/%d", mes, anio);
+        scanf("%d", &dia);
+
+        nodoLista * consumo = buscarConsumoXFecha(nodoCliente->consumos, anio, mes, dia);
+        if (consumo) {
+            consumo->dato.baja = true;
+            modificarConsumo(consumo->dato);
+        } else {
+            printf("El consumo ingresado no existe en el registro");
+            system("pause");
+        }
+    } else {
+        printf("El Nro Cliente ingresado no existe en el registro");
+        system("pause");
+    }
+}
+
+/**************************************************************************
+* \brief Da de baja un cliente y sus consumos
+* \param nodoArbol Nodo cliente al que dar de baja
+**************************************************************************/
+void darDeBajaCliente(nodoArbol* nodoCliente) {
+
+    nodoCliente->cliente.baja = true;
+    modificarClienteArchivo(nodoCliente->cliente);
+    darDeBajaListaConsumos(nodoCliente->consumos);
+
+}
+
+/**************************************************************************
+* \brief Da de baja un cliente y sus consumos
+* \param nodoArbol Arbol de clientes del que dar de baja un cliente
+**************************************************************************/
+void controlarBajaCliente(nodoArbol* arbolClientes) {
+
+    nodoArbol* nodoCliente;
+    int nroCliente = -1;
+    printf("Ingrese el Nro Cliente a dar de baja : ");
+    scanf("%d", &nroCliente);
+    nodoCliente = buscarXNroCliente(arbolClientes, nroCliente);
+    if(nodoCliente){
+        darDeBajaCliente(nodoCliente);
+    } else {
+        printf("El Nro Cliente ingresado no existe en el registro");
+        system("pause");
+    }
+
+}
+
+
+///////////////// FUNCIONES DE INSERCION /////////////////
+
+
 /*************************************************************//**
 *
 * \brief inserta el dato recibido en el arbol
 * \param nodoArbol * puntero a la raiz del arbol
-* \param stDatos dato dato a insertar en el arbol
+* \param stCliente dato dato a insertar en el arbol
 * \return nodoArbol* nodo del arbol
 *
 *****************************************************************/
-nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato)
-{
+nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato) {
     if( arbol )
     {
         if( dato.nroCliente > arbol->dato.nroCliente )
@@ -57,6 +510,13 @@ nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato)
     return arbol;
 }
 
+
+/**************************************************************************
+* \brief Pasa del archivo de clientes a un arbol de clientes orden nro cliente
+* \param char[] Nombre del archivo
+* \param nodoArbol arbol de clientes al que pasar
+* \return nodoArbol Arbol de clientes con los datos
+**************************************************************************/
 nodoArbol* archivoCliente2arbol(char nombreArchivo[], nodoArbol* arbol){
     stCliente c;
 
@@ -74,6 +534,12 @@ nodoArbol* archivoCliente2arbol(char nombreArchivo[], nodoArbol* arbol){
     return arbol;
 }
 
+/**************************************************************************
+* \brief Pasa del archivo de consumos a un arbol de clientes
+* \param char[] Nombre del archivo
+* \param nodoArbol arbol de clientes al que pasar
+* \return nodoArbol Arbol de clientes con los datos
+**************************************************************************/
 nodoArbol* archivoConsumo2arbol(char nombreArchivo[], nodoArbol* arbol){
     stConsumo c;
 
@@ -81,9 +547,9 @@ nodoArbol* archivoConsumo2arbol(char nombreArchivo[], nodoArbol* arbol){
 
     if(pArchConsumos)
     {
-        while(fread(&c,sizeof(stCliente),1,pArchConsumos) > 0)
+        while(fread(&c,sizeof(stConsumo),1,pArchConsumos) > 0)
         {
-            arbol = insertarConsumoXIdCliente(arbol, c);
+            insertarConsumoXIdCliente(arbol, c);
         }
         fclose(pArchConsumos);
     }
@@ -91,27 +557,35 @@ nodoArbol* archivoConsumo2arbol(char nombreArchivo[], nodoArbol* arbol){
     return arbol;
 }
 
+
+/**************************************************************************
+* \brief Carga un arbol con sus respectivos consumos y clientes a partir de los archivos
+* \param char[] Nombre del archivo clientes
+* \param char[] Nombre del archivo consumos
+* \param nodoArbol arbol de clientes al que pasar
+* \return nodoArbol Arbol de clientes con los datos
+**************************************************************************/
 nodoArbol* cargarArbolArchivos(char nombreArchivoCliente[], char nombreArchivoConsumo[] ,nodoArbol* arbol){
     arbol = archivoCliente2arbol(nombreArchivoCliente, arbol);
     arbol = archivoConsumo2arbol(nombreArchivoConsumo, arbol);
     return arbol;
 }
 
+
 /*************************************************************//**
-*
-* \brief busca un nodo por Nro de Cliente cuando no fue cargado bajo este parametro
-* \param nodoArbol * arbol - puntero a la raiz del arbol
-* \param int nroCliente -  Nro de Cliente a buscar
-* \return nodoArbol * rta puntero al nodo buscado
-*
+* \brief Inserta un consumo a base del idCliente
+* \param nodoArbol arbol al que insertar el consumo
+* \param stConsumo consumo que insertar
 *****************************************************************/
-nodoArbol* insertarConsumoXIdCliente(nodoArbol * arbol, stConsumo consumo)
+void insertarConsumoXIdCliente(nodoArbol * arbol, stConsumo consumo)
 {
     if (arbol)
     {
         if (arbol->dato.idCliente == consumo.idCliente)
         {
-            arbol->consumos = agregarEnOrden(arbol->consumos, crearNodo(consumo)); //inserto consumo
+            nodoLista* lista = inicLista();
+            lista = crearNodo(consumo);
+            arbol->consumos = agregarEnOrden(arbol->consumos, lista);
         }
         else
         {
@@ -120,6 +594,7 @@ nodoArbol* insertarConsumoXIdCliente(nodoArbol * arbol, stConsumo consumo)
         }
     }
 }
+
 
 /*************************************************************//**
 *
@@ -141,6 +616,13 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo){
     }
     return arbol;
 }
+
+
+
+
+
+///////////////// FUNCIONES DE VISUALIZACION /////////////////
+
 /*************************************************************//**
 *
 * \brief muestra el contenido del arbol de cliente
@@ -153,10 +635,18 @@ void mostrarArbolClientes(nodoArbol * arbol)
     if (arbol)
     {
         mostrarArbolClientes(arbol->izq);
+        printf("%d \n",arbol->dato.nroCliente);
         //mostrarCliente(arbol->dato);// adaptar nombre de la funcion
         mostrarArbolClientes(arbol->der);
     }
 }
+
+
+
+
+
+
+///////////////// FUNCIONES DE BUSQUEDA /////////////////
 
 /*************************************************************//**
 *
@@ -192,36 +682,43 @@ nodoArbol * buscarXNroCliente(nodoArbol * arbol,int nroCliente)
     return rta;
 }
 
+
 /*************************************************************//**
 *
-* \brief busca un nodo por Nro de Cliente cuando no fue cargado bajo este parametro
+* \brief busca un nodo por Id de Cliente cuando no fue cargado bajo este parametro
 * \param nodoArbol * arbol - puntero a la raiz del arbol
-* \param int nroCliente -  Nro de Cliente a buscar
+* \param int idCliente -  id de Cliente a buscar
 * \return nodoArbol * rta puntero al nodo buscado
 *
 *****************************************************************/
-nodoArbol * buscarXNroClienteDiferido(nodoArbol * arbol,int nroCliente)
+nodoArbol * buscarXidClienteDiferido(nodoArbol * arbol,int idCliente)
 {
     nodoArbol * retorno = NULL;
 
     if (arbol)
     {
-        if (arbol->dato.nroCliente == nroCliente)
+        if (arbol->dato.idCliente == idCliente)
         {
             retorno = arbol;
         }
         else
         {
-            retorno = buscarXNroClienteDiferido(arbol->izq,nroCliente);
+            retorno = buscarXidClienteDiferido(arbol->izq,idCliente);
             if ( !retorno )
             {
-                retorno = buscarXNroClienteDiferido(arbol->der,nroCliente);
+                retorno = buscarXidClienteDiferido(arbol->der,idCliente);
             }
         }
     }
 
     return retorno;
 }
+
+
+
+
+
+///////////////// FUNCIONES DE CALCULO /////////////////
 
 /*************************************************************//**
 *
@@ -301,6 +798,16 @@ int contarNiveles(nodoArbol * arbol)
 
     return nivel;
 }
+
+
+
+
+
+
+
+
+
+///////////////// FUNCIONES DE ELIMINACION /////////////////
 
 /*************************************************************//**
 *
@@ -389,28 +896,5 @@ nodoArbol * NMI(nodoArbol * arbol)
     return arbol;
 }
 
-/*************************************************************//**
-*
-* \brief copia el contenido del arreglo en el arbol ordenando por nro de cliente
-* \param nodoArbol * arbol - puntero a la raiz del arbol
-* \param stCliente arr[] - arreglo
-* \param int base - subindice en que inicia el arreglo (a la llamada va 0)
-* \param int tope - subindice en que termina el arreglo (a la llamada va validos-1)
-* \return nodoArbol * puntero al arbol cargado
-*
-*****************************************************************/
-nodoArbol * arr2treeXNroCliente(nodoArbol * arbol,stCliente arr[],int base,int tope)
-{
-    int medio;
 
-    if ( !(base<tope) )
-    {
-        medio = (base+tope)/2;
-        arbol = insertarXNroCliente(arbol,arr[medio]);
 
-        arbol = arr2treeXNroCliente(arbol,arr,base,medio-1);
-        arbol = arr2treeXNroCliente(arbol,arr,medio+1,tope);
-    }
-
-    return arbol;
-}

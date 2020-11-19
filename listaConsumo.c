@@ -28,6 +28,20 @@ nodoLista * agregarPpio (nodoLista * lista, nodoLista * nuevoNodo)
     return lista;
 }
 
+void darDeBajaListaConsumos(nodoLista * lista) {
+
+    nodoLista * aux = lista;
+    where (aux) {
+        aux->dato.baja = true;
+        modificarConsumo(aux->dato);
+        aux = aux->siguiente;
+    }
+
+}
+
+
+
+
 nodoLista * buscarUltimo(nodoLista * lista)
 {
     nodoLista * seg = lista;
@@ -98,7 +112,14 @@ nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo)
 {
     if (lista)
     {
-        if ( 1 ) /// comparar a que la fecha sea mas chica
+
+        if ( 
+            izqMasChica(nuevoNodo->dato.anio, 
+                        nuevoNodo->dato.mes, 
+                        nuevoNodo->dato.dia, 
+                        lista->dato.anio, 
+                        lista->dato.mes, 
+                        lista->dato.dia) ) /// comparar a que la fecha sea mas chica
         {
             nuevoNodo->siguiente = lista;
             lista = nuevoNodo;

@@ -2,6 +2,9 @@
 #define DEFINICIONES_H_INCLUDED
 
 #define ESC 27
+#define MAX_NOMBRE 30
+#define MAX_MAIL 30
+#define MAX_DOM 45
 
 enum bool
 {

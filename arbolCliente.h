@@ -1,22 +1,15 @@
 #ifndef ARBOLCLIENTE_H_INCLUDED
 #define ARBOLCLIENTE_H_INCLUDED
+#define AR_CLIENTES "clientes.dat"
+
 #include <stdio.h>
 #include <stdlib.h>
+#include "cliente.h"
 #include "listaConsumo.h"
+#include "definiciones.h"
 
-typedef struct {
-    int idCliente; /// campo único y autoincremental
-    int nroCliente;
-    char nombre[30];
-    char apellido[30];
-    int dni;
-    char email[30];
-    char domicilio[45];
-    int movil;
-    int baja; /// 0 si está activo - 1 si está eliminado
-} stCliente;
 
-typedef struct nodoArbol{
+typedef struct{
     stCliente dato;
     nodoLista* consumos;
     struct nodoArbol* izq;
@@ -29,14 +22,25 @@ nodoArbol * crearNodoArbol(stCliente dato);
 
 /*INSERCION*/
 nodoArbol * insertarXNroCliente(nodoArbol * arbol, stCliente dato);
-nodoArbol* insertarConsumoXIdCliente(nodoArbol * arbol, stConsumo consumo);
+void insertarConsumoXIdCliente(nodoArbol * arbol, stConsumo consumo);
+nodoArbol* cargarClientesManual(nodoArbol* arbolClientes);
+stCliente cargaManualUnCliente(nodoArbol* arbolClientes);
+nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo);
 
+/*BAJA*/
+void darDeBajaCliente(nodoArbol* nodoCliente);
+void controlarBajaCliente(nodoArbol* arbolClientes);
+
+/*MODIFICACION*/
+nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes,stCliente cm);
+nodoArbol* modificarClienteArbol(nodoArbol* arbolClientes, stCliente c);
+nodoArbol* controlarModificacionCliente(nodoArbol* arbolClientes);
 /*MUESTRA / RECORRIDO*/
 void mostrarArbolClientes(nodoArbol * arbol);
 
 /*BUSQUEDA*/
 nodoArbol * buscarXNroCliente(nodoArbol * arbol,int nroCliente);
-nodoArbol * buscarXNroClienteDiferido(nodoArbol * arbol,int nroCliente);
+nodoArbol * buscarXidClienteDiferido(nodoArbol * arbol,int idCliente);
 
 /*CONTADORES*/
 int contarElementos(nodoArbol * arbol);
@@ -47,8 +51,5 @@ int contarNiveles(nodoArbol * arbol);
 nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente);
 nodoArbol * NMD(nodoArbol * arbol);
 nodoArbol * NMI(nodoArbol * arbol);
-
-/*PASAJES*/
-nodoArbol * arr2treeXNroCliente(nodoArbol * arbol,stCliente arr[],int base,int tope);
 
 #endif // ARBOLCLIENTE_H_INCLUDED
