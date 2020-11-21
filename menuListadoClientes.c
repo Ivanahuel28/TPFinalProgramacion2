@@ -143,6 +143,3 @@ void mostrarFiltrandoXEstado(nodoArbol * arbol,int estado)
         mostrarFiltrandoXEstado(arbol->der,estado);
     }
 }
-
-
-void

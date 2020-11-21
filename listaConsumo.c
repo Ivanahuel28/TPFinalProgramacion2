@@ -31,8 +31,8 @@ nodoLista * agregarPpio (nodoLista * lista, nodoLista * nuevoNodo)
 void darDeBajaListaConsumos(nodoLista * lista) {
 
     nodoLista * aux = lista;
-    where (aux) {
-        aux->dato.baja = true;
+    while (aux) {
+        aux->dato.baja = 1;
         modificarConsumo(aux->dato);
         aux = aux->siguiente;
     }
@@ -113,12 +113,12 @@ nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo)
     if (lista)
     {
 
-        if ( 
-            izqMasChica(nuevoNodo->dato.anio, 
-                        nuevoNodo->dato.mes, 
-                        nuevoNodo->dato.dia, 
-                        lista->dato.anio, 
-                        lista->dato.mes, 
+        if (
+            izqMasChica(nuevoNodo->dato.anio,
+                        nuevoNodo->dato.mes,
+                        nuevoNodo->dato.dia,
+                        lista->dato.anio,
+                        lista->dato.mes,
                         lista->dato.dia) ) /// comparar a que la fecha sea mas chica
         {
             nuevoNodo->siguiente = lista;

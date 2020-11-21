@@ -126,3 +126,7 @@ int ultimoIdCliente() {
     }
     return id;
 }
+
+void mostrarUnCliente(stCliente c){
+    printf("\t %d | %s | %s | %s | %s | %s | %s | %s \n", c.nroCliente, c.nombre, c.apellido, c.dni, c.email, c.domicilio, c.movil, c.baja ? "SI" : "NO");
+}

@@ -27,16 +27,18 @@ nodoArbol* cargarClientesManual(nodoArbol* arbolClientes);
 stCliente cargaManualUnCliente(nodoArbol* arbolClientes);
 nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo);
 
+/*MUESTRA / RECORRIDO*/
+void mostrarArbolClientes(nodoArbol * arbol);
+
 /*BAJA*/
 void darDeBajaCliente(nodoArbol* nodoCliente);
 void controlarBajaCliente(nodoArbol* arbolClientes);
 
 /*MODIFICACION*/
-nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes,stCliente cm);
 nodoArbol* modificarClienteArbol(nodoArbol* arbolClientes, stCliente c);
+nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes,stCliente cm);
 nodoArbol* controlarModificacionCliente(nodoArbol* arbolClientes);
-/*MUESTRA / RECORRIDO*/
-void mostrarArbolClientes(nodoArbol * arbol);
+nodoLista * formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoLista * listaConsumos ,nodoLista * consumo);
 
 /*BUSQUEDA*/
 nodoArbol * buscarXNroCliente(nodoArbol * arbol,int nroCliente);
@@ -51,5 +53,15 @@ int contarNiveles(nodoArbol * arbol);
 nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente);
 nodoArbol * NMD(nodoArbol * arbol);
 nodoArbol * NMI(nodoArbol * arbol);
+
+
+/*MENU LISTADO CLIENTES*/
+void menuListadoClientes(nodoArbol * arbol);
+void encabezado();
+void menuMostrarFiltrando(nodoArbol * arbol);
+void mostrarOpcionesDeFiltro();
+void mostrarFiltrandoXApellido(nodoArbol * arbol,char apellido[]);
+void mostrarFiltrandoXNombre(nodoArbol * arbol,char nombre[]);
+void mostrarFiltrandoXEstado(nodoArbol * arbol,int estado);
 
 #endif // ARBOLCLIENTE_H_INCLUDED

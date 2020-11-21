@@ -25,7 +25,7 @@ int ultimoIdConsumos() {
     if(pArchConsumos){
         fseek(pArchConsumos, sizeof(stConsumo)*(-1),SEEK_END);
         if(fread(&c,sizeof(stConsumo),1,pArchConsumos) > 0){
-            id = c.id;
+            id = c.idConsumo;
         }
         fclose(pArchConsumos);
     }
@@ -39,7 +39,7 @@ int ultimoIdConsumos() {
 **************************************************************************/
 void modificarConsumo(stConsumo c) {
     int pos = 0;
-    pos = buscaPosConsumos(c.id);
+    pos = buscaPosConsumos(c.idConsumo);
     FILE *pArchConsumos = fopen(AR_CONSUMOS, "r+b");
     if(pArchConsumos){
         fseek(pArchConsumos, sizeof(stConsumo)*pos, SEEK_SET);
@@ -54,11 +54,10 @@ void modificarConsumo(stConsumo c) {
 **************************************************************************/
 void mostrarModificacionConsumo(stConsumo c){
 
-    int nroCliente = obtenerNroClientePorID(c.idCliente);
     printf("\n ----------------------------------------");
     //printf("\n -) ID consumo .............:  %d", c.id);
     //printf("\n -) ID Cliente .............:  %d", c.idCliente);
-    printf("\n 1) Nro Cliente .............: %d", nroCliente);
+    //printf("\n 1) Nro Cliente .............: %d", c.nroCliente);
     printf("\n 2) Anio ....................: %d", c.anio);
     printf("\n 3) Mes .....................: %d", c.mes);
     printf("\n 4) Dia .....................: %d", c.dia);
@@ -84,7 +83,7 @@ int buscaPosConsumos(int id){
     FILE *pArchConsumos = fopen(AR_CONSUMOS, "rb");
     if(pArchConsumos){
         while(pos==-1 && fread(&c, sizeof(stConsumo), 1, pArchConsumos) > 0){
-            if(c.id == id){
+            if(c.idConsumo == id){
                 pos = ftell(pArchConsumos)/sizeof(stConsumo)-1;
             }
         }

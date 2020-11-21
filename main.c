@@ -39,11 +39,14 @@ int main()
 */
 
    arbolClientes = cargarArbolArchivos(AR_CLIENTES, AR_CONSUMOS, arbolClientes);
-   arbolClientes = cargarClientesManual(arbolClientes);
+   //arbolClientes = cargarClientesManual(arbolClientes);
 
-   arbolClientes = controlarModificacionCliente(arbolClientes);
-   arbolClientes = controlarBajaCliente(arbolClientes);
-   mostrarArbolClientes(arbolClientes);
+   //arbolClientes = controlarModificacionCliente(arbolClientes);
+   //arbolClientes = controlarBajaCliente(arbolClientes);
+   //mostrarArbolClientes(arbolClientes);
+   menuListadoClientes(arbolClientes);
+
+
 
 
    return 0;
