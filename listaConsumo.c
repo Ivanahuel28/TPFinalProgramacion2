@@ -110,8 +110,10 @@ nodoLista * borrarNodo(nodoLista* lista,nodoLista * nodo)
 
 nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo)
 {
+    printf("\nhola2");
     if (lista)
     {
+        printf("\nhola3");
 
         if (
             izqMasChica(nuevoNodo->dato.anio,
@@ -147,6 +149,7 @@ nodoLista * borrarTodaLaLista(nodoLista * lista)
 
 void muestraLista(nodoLista * lista)
 {
+    printf("\nholaaa");
     if (lista)
     {
         muestraNodo(lista);
@@ -157,6 +160,8 @@ void muestraLista(nodoLista * lista)
 void muestraNodo(nodoLista * nodo)
 {
     //muestraConsumo(nodo->dato);
+
+    printf("\n\t%d",nodo->dato.datosConsumidos);
 }
 
 nodoLista * eliminarPrimerNodo(nodoLista * lista)

@@ -4,7 +4,7 @@
 * \brief Función que muestra las estadísticas por Número de Cliente
 * \param nodoArbol arbol de clientes
 **************************************************************************/
-void muestraEstadísticas(nodoArbol* arbolClientes)}
+void muestraEstadisticas(nodoArbol* arbolClientes){
     int nroCliente;
 
     printf("\n Ingrese el número de cliente a realizar las estadísticas: ");
@@ -21,6 +21,9 @@ void muestraEstadísticas(nodoArbol* arbolClientes)}
     printf("\t|--------------------------------------------------------------------------------------------|\n");
     printf("\t|     %d    |     %d    |     %d    |     %d    |     %d    |\n", gastosTotales(arbolClientes, nroCliente), gastosTotales(arbolClientes, nroCliente)/12, gastosTotales(arbolClientes, nroCliente)/365, gastoMinimo(arbolClientes, nroCliente), gastoMaximo(arbolClientes, nroCliente));
     printf("\t -------------------------------------------------------------------------------------------- \n");
+
+
+    system("pause");
 }
 /**************************************************************************
 * \brief Función que retorna la suma de gastos totales por Número de Cliente
@@ -30,7 +33,7 @@ void muestraEstadísticas(nodoArbol* arbolClientes)}
 **************************************************************************/
 int gastosTotales(nodoArbol* arbolClientes, int nroCliente){
    int gastos = 0;
-   nodoLista* consumos = buscarXNroCliente(arbolClientes, nroCliente)->consumos;
+   nodoLista * consumos = buscarXNroCliente(arbolClientes, nroCliente)->consumos;
 
    while(consumos){
         gastos = gastos + consumos->dato.datosConsumidos;
@@ -46,7 +49,12 @@ int gastosTotales(nodoArbol* arbolClientes, int nroCliente){
 **************************************************************************/
 int gastoMinimo(nodoArbol* arbolClientes, int nroCliente){
     nodoLista* consumos = buscarXNroCliente(arbolClientes, nroCliente)->consumos;
-    int min = consumos->dato.datosConsumidos;
+    int min = 0;
+
+    if ( consumos )
+    {
+        min = consumos->dato.datosConsumidos;
+    }
 
     while(consumos){
         if(consumos->dato.datosConsumidos < min){
@@ -65,7 +73,12 @@ int gastoMinimo(nodoArbol* arbolClientes, int nroCliente){
 **************************************************************************/
 int gastoMaximo(nodoArbol* arbolClientes, int nroCliente){
     nodoLista* consumos = buscarXNroCliente(arbolClientes, nroCliente)->consumos;
-    int max = consumos->dato.datosConsumidos;
+    int max = 0;
+
+    if ( consumos )
+    {
+        max =consumos->dato.datosConsumidos;
+    }
 
     while(consumos){
         if(consumos->dato.datosConsumidos > max){
@@ -84,7 +97,7 @@ int gastoMaximo(nodoArbol* arbolClientes, int nroCliente){
 * \param int número de cliente
 **************************************************************************/
 void muestraConsumos(nodoArbol* arbolClientes, int nroClientes){
-    nodoLista* consumos = buscarXNroCliente(arbolClientes, nroCliente)->consumos;
+    nodoLista* consumos = buscarXNroCliente(arbolClientes, nroClientes)->consumos;
 
     printf("\t -----------------CONSUMOS------------ \n\n");
     printf("\t|     FECHA     |     MB     |     BAJA   |\n");
@@ -93,6 +106,9 @@ void muestraConsumos(nodoArbol* arbolClientes, int nroClientes){
         consumos = consumos->siguiente;
     }
     printf("\t ------------------------------ \n");
+
+
+    system("pause");
 }
 /**************************************************************************
 * \brief Función que retorna la suma de consumos de un mes

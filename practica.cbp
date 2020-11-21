@@ -44,6 +44,10 @@
 		</Unit>
 		<Unit filename="consumo.h" />
 		<Unit filename="definiciones.h" />
+		<Unit filename="estadisticas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="estadisticas.h" />
 		<Unit filename="fechas.c">
 			<Option compilerVar="CC" />
 		</Unit>

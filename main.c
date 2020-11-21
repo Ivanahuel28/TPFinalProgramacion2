@@ -44,10 +44,17 @@ int main()
    //arbolClientes = controlarModificacionCliente(arbolClientes);
    //arbolClientes = controlarBajaCliente(arbolClientes);
    //mostrarArbolClientes(arbolClientes);
-   menuListadoClientes(arbolClientes);
+   //menuListadoClientes(arbolClientes);
 
+    controlarCargaManual(arbolClientes);
 
+    muestraLista(arbolClientes->consumos);
 
+    system("pause");
 
-   return 0;
+    mostrarArbolClientesNuevo(arbolClientes);
+
+    return 0;
 }
+
+

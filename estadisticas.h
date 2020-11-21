@@ -4,7 +4,7 @@
 #include "arbolCliente.h"
 
 ////////////////////ESTADISTICAS/////////////////////////////
-void muestraEstadísticas(nodoArbol* arbolClientes);
+void muestraEstadisticas(nodoArbol* arbolClientes);
 int gastosTotales(nodoArbol* arbolClientes, int nroCliente);
 int gastoMinimo(nodoArbol* arbolClientes, int nroCliente);
 int gastoMaximo(nodoArbol* arbolClientes, int nroCliente);

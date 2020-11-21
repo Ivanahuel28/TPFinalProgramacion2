@@ -143,7 +143,24 @@ stConsumo cargaManualUnConsumo(nodoArbol * arbolClientes) {
 void controlarCargaManual(nodoArbol * arbolClientes){
 
     stConsumo c = cargaManualUnConsumo(arbolClientes);
+    mostrarUnConsumo(c);
     sumarONuevo(arbolClientes, c);
+}
+
+/**
+* \brief Muestra un consumo por pantalla
+* \param stConsumo Consumo a mostrar
+**/
+void mostrarUnConsumo(stConsumo c){
+    //Esta funcion deberia trabajar sobre un arreglo, por que asi es ineficiente, es algo a laburar luego la optimizacion.
+    //int nroCliente = obtenerNroClientePorID(c.idCliente);
+    printf("\n ----------------------------------------");
+    printf("\n ID consumo .............:  %d", c.idConsumo);
+    printf("\n ID Cliente .............:  %d", c.idCliente);
+    //printf("\n Nro Cliente .............: %d", c.nroCliente);
+    printf("\n Fecha (dia - mes - anio) : %d-%d-%d ", c.dia, c.mes, c.anio);
+    printf("\n Datos comsumidos ........: %d MB", c.datosConsumidos);
+    printf("\n Baja ....................: %s", (c.baja) ? "SI" : "NO" );
 
 }
 
@@ -151,19 +168,23 @@ void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
 
     nodoArbol * cliente = buscarXidClienteDiferido(arbolClientes, c.idCliente);
 
+    printf("\n %s ",cliente->dato.nombre);
+
     if (cliente) {
         nodoLista * consumo = buscarConsumoXFecha(cliente->consumos, c.anio, c.mes, c.dia);
+
         if(consumo){
             consumo->dato.datosConsumidos += c.datosConsumidos;
             modificarConsumo(consumo->dato);
         } else {
+
+            printf("\nhola1");
             agregarEnOrden(cliente->consumos, crearNodo(c));
             agregarUnConsumo(c);
         }
     }
 
 }
-
 
 
 
@@ -629,7 +650,7 @@ void mostrarArbolClientes(nodoArbol * arbol)
     if (arbol)
     {
         mostrarArbolClientes(arbol->izq);
-        printf("%d \n",arbol->dato.nroCliente);
+        //printf("%d \n",arbol->dato.nroCliente);
         mostrarUnCliente(arbol->dato);
         //mostrarCliente(arbol->dato);// adaptar nombre de la funcion
         mostrarArbolClientes(arbol->der);
@@ -784,14 +805,6 @@ int contarNiveles(nodoArbol * arbol)
     return nivel;
 }
 
-
-
-
-
-
-
-
-
 ///////////////// FUNCIONES DE ELIMINACION /////////////////
 
 /*************************************************************//**
@@ -890,10 +903,12 @@ void menuListadoClientes(nodoArbol * arbol)
     {
         system("cls");
         encabezado();
-        headerDeCliente();
+        mostrarArbolClientes(arbol);
 
         fflush(stdin);
         op = getch();
+
+        system("cls");
 
         switch (op)
         {
@@ -902,7 +917,9 @@ void menuListadoClientes(nodoArbol * arbol)
                 break;
 
             case '2':
+                headerDeCliente();
                 mostrarArbolClientes(arbol);
+                system("pause");
                 break;
 
             case '3':
@@ -918,18 +935,19 @@ void menuListadoClientes(nodoArbol * arbol)
                 break;
         }
 
-
     } while ( op != 27);
 }
 
 void encabezado()
 {
     printf("\n\t___________________________________________________________________________________________");
-    printf("\n\n\t [1] - FILTRAR\t[2] - VER TODO\t[3] - MODIFICAR CLIENTE\t[4] - VER DETALLE\t[ESC] - SALIR");
-    printf("\n\t___________________________________________________________________________________________");
+    printf("\n\n\t[1]- FILTRAR [2] - VER TODO [3] - MODIFICAR CLIENTE [4] - VER DETALLE [ESC] - SALIR");
+    printf("\n\t___________________________________________________________________________________________\n");
 }
-void headerDeCliente(){
-    printf("\t Numero de Cliente | Nombre | Apellido | DNI | Email | Domicilio | Movil | Baja \n");
+
+void headerDeCliente()
+{
+    printf("\n\n\t Numero de Cliente | Nombre | Apellido | DNI | Email | Domicilio | Movil | Baja \n\n");
 }
 
 void menuMostrarFiltrando(nodoArbol * arbol)
@@ -938,8 +956,11 @@ void menuMostrarFiltrando(nodoArbol * arbol)
 
     do
     {
+        system("cls");
         mostrarOpcionesDeFiltro();
         op = getch();
+
+        system("cls");
 
         switch (op)
         {
@@ -947,6 +968,7 @@ void menuMostrarFiltrando(nodoArbol * arbol)
                 printf("\n\tIngrese un Apellido, o parte del mismo :");
                 fflush(stdin);
                 gets(apellido);
+                headerDeCliente();
                 mostrarFiltrandoXApellido(arbol, apellido);
                 break;
 
@@ -954,22 +976,27 @@ void menuMostrarFiltrando(nodoArbol * arbol)
                 printf("\n\tIngrese un Nombre, o parte del mismo :");
                 fflush(stdin);
                 gets(nombre);
+                headerDeCliente();
                 mostrarFiltrandoXNombre(arbol, nombre);
                 break;
 
             case '3':
+                headerDeCliente();
                 mostrarFiltrandoXEstado(arbol,0);
                 break;
 
             case '4':
+                headerDeCliente();
                 mostrarFiltrandoXEstado(arbol,1);
                 break;
 
             default:
                 printf("\n\tOpcion invalida");
                 break;
+
         }
 
+        system("pause");
 
     } while ( op != 27 );
 }
@@ -1025,3 +1052,189 @@ void mostrarFiltrandoXEstado(nodoArbol * arbol,int estado)
         mostrarFiltrandoXEstado(arbol->der,estado);
     }
 }
+
+void limpiarFiltro(stFiltro * filtro)
+{
+    strcpy(filtro->nroCliente,"");
+    strcpy(filtro->nombre,"");
+    strcpy(filtro->apellido,"");
+    strcpy(filtro->dni,"");
+    strcpy(filtro->email,"");
+    strcpy(filtro->domicilio,"");
+    strcpy(filtro->movil,"");
+
+    filtro->baja = -1;
+
+    filtro->activado = 0;
+}
+
+void mostrarArbolClientesNuevo(nodoArbol * arbol)
+{
+    char op;
+    stFiltro filtro;
+
+    limpiarFiltro(&filtro);
+
+    do
+    {
+        system("cls");
+        encabezado();
+        headerDeCliente();
+        mostrarArbolClientesFiltrado(arbol,filtro);
+
+        fflush(stdin);
+        op = getch();
+
+        system("cls");
+
+        switch ( op )
+        {
+            case Uno:
+                controlarFiltros(&filtro);
+                break;
+
+            case Dos:
+                limpiarFiltro(&filtro);
+                break;
+
+            case Tres:
+
+                arbol = controlarModificacionCliente(arbol);
+                break;
+
+            case Cuatro:
+                muestraEstadisticas(arbol);
+                muestraConsumos(arbol,2);
+                break;
+
+            default:
+                break;
+        }
+
+
+        system("cls");
+
+    } while ( op != ESC );
+}
+
+/**
+* \brief Funcion que muestra las opciones de los filtros de clientes
+**/
+void mostrarFiltros() {
+
+    printf("\n ----------- FILTRAR POR ---------------");
+    printf("\n ----------------------------------------");
+    printf("\n 1) Nro Cliente ......: ");
+    printf("\n 2) Nombre ...........: ");
+    printf("\n 3) Apellido .........: ");
+    printf("\n 4) DNI ..............: ");
+    printf("\n 5) Email ............: ");
+    printf("\n 6) Domicilio ........: ");
+    printf("\n 7) Movil ............: ");
+    printf("\n 8) Baja .............: ");
+    printf("\n\n\n Cancelar (ESC)     ");
+
+}
+
+void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro)
+{
+    if (arbol)
+    {
+        if ( !filtro.activado )
+        {
+            mostrarUnCliente(arbol->dato);
+        }
+        else
+        {
+            char stringNroCliente[30];
+
+            itoa(arbol->dato.nroCliente,stringNroCliente,10);
+
+            if ( strncmp(arbol->dato.apellido,filtro.apellido,strlen(filtro.apellido)) == 0 &&
+                 strncmp(arbol->dato.nombre,filtro.nombre,strlen(filtro.nombre)) == 0 &&
+                 strncmp(arbol->dato.dni,filtro.dni,strlen(filtro.dni)) == 0 &&
+                 strncmp(arbol->dato.domicilio,filtro.domicilio,strlen(filtro.domicilio)) == 0 &&
+                 strncmp(arbol->dato.email,filtro.email,strlen(filtro.email)) == 0 &&
+                 strncmp(arbol->dato.movil,filtro.movil,strlen(filtro.movil)) == 0  &&
+                 ( arbol->dato.baja == filtro.baja || filtro.baja == -1 ) &&
+                 strncmp(stringNroCliente,filtro.nroCliente,strlen(filtro.nroCliente)) == 0 )
+            {
+                mostrarUnCliente(arbol->dato);
+            }
+        }
+
+        mostrarArbolClientesFiltrado(arbol->izq,filtro);
+        mostrarArbolClientesFiltrado(arbol->der,filtro);
+    }
+}
+
+
+/**
+* \brief Funcion que controla los filtros de clientes
+* \param stCliente arreglo de clientes
+* \return int validos del arreglo
+**/
+void controlarFiltros(stFiltro * filtro){
+
+    char opcion;
+
+    mostrarFiltros();
+    fflush(stdin);
+    opcion = getch();
+    switch (opcion)
+    {
+    case 49:
+        printf("\n\t Ingrese Nro de Cliente : ");
+        fflush(stdin);
+        gets(filtro->nroCliente);
+        break;
+
+    case 50:
+        printf("\n\t Ingrese nombre : ");
+        fflush(stdin);
+        gets(filtro->nombre);
+        break;
+
+    case 51:
+        printf("\n\t Ingrese Apellido : ");
+        fflush(stdin);
+        gets(filtro->apellido);
+        break;
+
+    case 52:
+        printf("\n\t Ingrese Dni : ");
+        fflush(stdin);
+        gets(filtro->dni);
+        break;
+
+    case 53:
+        printf("\n\t Ingrese Email : ");
+        fflush(stdin);
+        gets(filtro->email);
+        break;
+
+    case 54:
+        printf("\n\t Ingrese Domicilio : ");
+        fflush(stdin);
+        gets(filtro->domicilio);
+        break;
+
+    case 55:
+        printf("\n\t Ingrese Movil : ");
+        fflush(stdin);
+        gets(filtro->movil);
+        break;
+
+    case 56:
+        printf("\n\t Ingrese baja ( 1 - SI | 0 - NO) : ");
+        fflush(stdin);
+        scanf("%d",&filtro->baja);
+        break;
+    }
+
+    if ( opcion != ESC )
+    {
+        filtro->activado = 1;
+    }
+}
+

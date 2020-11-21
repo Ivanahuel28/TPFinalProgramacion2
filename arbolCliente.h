@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "cliente.h"
 #include "listaConsumo.h"
 #include "definiciones.h"
@@ -63,5 +64,25 @@ void mostrarOpcionesDeFiltro();
 void mostrarFiltrandoXApellido(nodoArbol * arbol,char apellido[]);
 void mostrarFiltrandoXNombre(nodoArbol * arbol,char nombre[]);
 void mostrarFiltrandoXEstado(nodoArbol * arbol,int estado);
+
+
+typedef struct
+{
+    char nroCliente[30];
+    char nombre[30];
+    char apellido[30];
+    char dni[15];
+    char email[30];
+    char domicilio[45];
+    char movil[15];
+    int baja;
+
+    int activado;
+}stFiltro;
+
+void limpiarFiltro(stFiltro * filtro);
+void mostrarArbolClientesNuevo(nodoArbol * arbol);
+void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro);
+void controlarFiltros(stFiltro * filtro);
 
 #endif // ARBOLCLIENTE_H_INCLUDED
