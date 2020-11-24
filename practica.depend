@@ -103,3 +103,66 @@
 1605990439 c:\users\usuario\desktop\tp final\estadisticas.h
 	"arbolCliente.h"
 
+1606183993 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.c
+	"arbolCliente.h"
+
+1605999116 c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"cliente.h"
+	"listaConsumo.h"
+	"definiciones.h"
+
+1606250574 c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.h
+	<stdio.h>
+	<stdlib.h>
+
+1605748427 c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.h
+	<stdio.h>
+	<stdlib.h>
+	"consumo.h"
+
+1606187640 c:\users\ignacio\desktop\2 cuatrimestre\tp final\consumo.h
+	<stdio.h>
+	<stdlib.h>
+
+1605385606 c:\users\ignacio\desktop\2 cuatrimestre\tp final\definiciones.h
+
+1606254997 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.c
+	"cliente.h"
+
+1606181234 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\consumo.c
+	"consumo.h"
+
+1606183993 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\estadisticas.c
+	"estadisticas.h"
+
+1605999116 c:\users\ignacio\desktop\2 cuatrimestre\tp final\estadisticas.h
+	"arbolCliente.h"
+
+1606182560 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\fechas.c
+	"fechas.h"
+
+1604441743 c:\users\ignacio\desktop\2 cuatrimestre\tp final\fechas.h
+	<stdio.h>
+	<dos.h>
+	<time.h>
+	<stdlib.h>
+	"definiciones.h"
+
+1606182701 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.c
+	"listaConsumo.h"
+
+1606254988 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fechas.h"
+	"arbolCliente.h"
+
+1606256312 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\aleatorios.c
+	"aleatorios.h"
+
+1606256334 c:\users\ignacio\desktop\2 cuatrimestre\tp final\aleatorios.h
+	"cliente.h"
+

@@ -130,3 +130,95 @@ int ultimoIdCliente() {
 void mostrarUnCliente(stCliente c){
     printf("\t %d | %s | %s | %s | %s | %s | %s | %s \n", c.nroCliente, c.nombre, c.apellido, c.dni, c.email, c.domicilio, c.movil, c.baja ? "SI" : "NO");
 }
+
+void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
+    char aux[100];
+    itoa(valor, aux, 10);
+    int length = strlen(aux);
+
+    if( length < tamanoMaximo - 1) {
+            for(int i = 0; i < length; i++){
+                formateado[i] = aux[i];
+            }
+
+            for(int i = length; i < tamanoMaximo; i++){
+                formateado[i] = ' ';
+            }
+            formateado[tamanoMaximo - 1] = '|';
+
+    } else {
+
+
+    }
+
+}
+
+
+
+
+
+
+
+
+/*
+void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
+
+    char aux[100];
+    itoa(valor, aux, 10);
+    int length = strlen(aux);
+
+    if( length < tamanoMaximo - 1) {
+
+        int espacioVacio = tamanoMaximo - 1 - length;
+        int mitad = espacioVacio / 2;
+
+        for(int i = 0; i < mitad - 1; i++ ){
+            formateado[i] = " ";
+        }
+
+        strcat(formateado, aux);
+
+        for(int i = mitad + length - 1; i < tamanoMaximo ; i++ ){
+            formateado[i] = " ";
+        }
+        formateado[tamanoMaximo - 1] = '|';
+
+
+    } else {
+
+        strcpy(formateado, aux);
+        formateado[tamanoMaximo - 1] = '|';
+
+    }
+
+}
+
+void formatearCeldaString(char valor[], char formateado[] ,int tamanoMaximo) {
+
+
+    int length = strlen(valor);
+
+
+    if( length < tamanoMaximo) {
+
+        int espacioVacio = tamanoMaximo - 1 - length;
+        int mitad = espacioVacio / 2;
+        for(int i = 0; i < mitad; i++ ){
+            formateado[i] = ' ';
+        }
+        strcat(formateado, valor);
+
+        for(int i = mitad + length ; i < tamanoMaximo ; i++ ){
+            formateado[i] = ' ';
+        }
+
+        sprintf(formateado);
+        formateado[tamanoMaximo - 1] = '|';
+        //printf("%s", formateado);
+
+    } else {
+        strcpy(formateado, valor);
+        formateado[tamanoMaximo - 1] = '|';
+    }
+
+}*/

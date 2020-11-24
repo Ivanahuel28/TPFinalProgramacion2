@@ -47,9 +47,10 @@ int fechaRandom( int *y, int *m, int *d ){
 
 int izqMasChica(int yi, int mi, int di, int yd, int md, int dd) {
 
+
    int sumaIzq = yi * 10000 + mi * 100 + di;
    int sumaDer = yd * 10000 + md * 100 + dd;
-   
+
    if(sumaIzq < sumaDer) {
       return true;
    }

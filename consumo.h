@@ -20,5 +20,7 @@ int buscaPosConsumos(int id);
 void modificarConsumo(stConsumo c);
 void agregarUnConsumo(stConsumo c);
 int ultimoIdConsumos();
+void mostrarUnConsumo(stConsumo c);
+
 
 #endif // CONSUMO_H_INCLUDED

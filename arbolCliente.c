@@ -23,6 +23,7 @@ nodoArbol * crearNodoArbol(stCliente dato)
 {
     nodoArbol * aux = (nodoArbol * ) malloc(sizeof( nodoArbol ) );
     aux->dato=dato;
+    aux->consumos = NULL;
     aux->der=NULL;
     aux->izq=NULL;
 
@@ -143,44 +144,28 @@ stConsumo cargaManualUnConsumo(nodoArbol * arbolClientes) {
 void controlarCargaManual(nodoArbol * arbolClientes){
 
     stConsumo c = cargaManualUnConsumo(arbolClientes);
-    mostrarUnConsumo(c);
     sumarONuevo(arbolClientes, c);
 }
 
-/**
-* \brief Muestra un consumo por pantalla
-* \param stConsumo Consumo a mostrar
-**/
-void mostrarUnConsumo(stConsumo c){
-    //Esta funcion deberia trabajar sobre un arreglo, por que asi es ineficiente, es algo a laburar luego la optimizacion.
-    //int nroCliente = obtenerNroClientePorID(c.idCliente);
-    printf("\n ----------------------------------------");
-    printf("\n ID consumo .............:  %d", c.idConsumo);
-    printf("\n ID Cliente .............:  %d", c.idCliente);
-    //printf("\n Nro Cliente .............: %d", c.nroCliente);
-    printf("\n Fecha (dia - mes - anio) : %d-%d-%d ", c.dia, c.mes, c.anio);
-    printf("\n Datos comsumidos ........: %d MB", c.datosConsumidos);
-    printf("\n Baja ....................: %s", (c.baja) ? "SI" : "NO" );
 
-}
 
 void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
 
     nodoArbol * cliente = buscarXidClienteDiferido(arbolClientes, c.idCliente);
 
-    printf("\n %s ",cliente->dato.nombre);
-
     if (cliente) {
         nodoLista * consumo = buscarConsumoXFecha(cliente->consumos, c.anio, c.mes, c.dia);
-
         if(consumo){
+
             consumo->dato.datosConsumidos += c.datosConsumidos;
             modificarConsumo(consumo->dato);
+
+
         } else {
 
-            printf("\nhola1");
             agregarEnOrden(cliente->consumos, crearNodo(c));
             agregarUnConsumo(c);
+
         }
     }
 
@@ -1104,7 +1089,7 @@ void mostrarArbolClientesNuevo(nodoArbol * arbol)
 
             case Cuatro:
                 muestraEstadisticas(arbol);
-                muestraConsumos(arbol,2);
+                muestraConsumos(arbol,1);
                 break;
 
             default:

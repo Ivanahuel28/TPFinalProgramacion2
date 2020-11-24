@@ -23,6 +23,8 @@ void agregarUnCliente(stCliente c);
 int validaEmail(char email[]);
 
 
+void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo);
+void formatearCeldaString(char valor[],char formateado[], int tamanoMaximo);
 ///////////////// FUNCIONES DE MODIFICACION /////////////////
 int obtenerInt();
 void mostrarModificacion(stCliente c);

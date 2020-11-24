@@ -96,8 +96,8 @@ int gastoMaximo(nodoArbol* arbolClientes, int nroCliente){
 * \param nodoArbol arbol de clientes
 * \param int número de cliente
 **************************************************************************/
-void muestraConsumos(nodoArbol* arbolClientes, int nroClientes){
-    nodoLista* consumos = buscarXNroCliente(arbolClientes, nroClientes)->consumos;
+void muestraConsumos(nodoArbol* arbolClientes, int nroCliente){
+    nodoLista* consumos = buscarXNroCliente(arbolClientes, nroCliente)->consumos;
 
     printf("\t -----------------CONSUMOS------------ \n\n");
     printf("\t|     FECHA     |     MB     |     BAJA   |\n");

@@ -59,6 +59,7 @@ nodoLista * buscarConsumoXFecha(nodoLista * lista,int anio,int mes,int dia)
     nodoLista * seg = lista;
     int flag = 0;
 
+
     while ((seg) && (flag != 1))
     {
         if ((seg->dato.anio == anio) && (seg->dato.mes == mes) && (seg->dato.dia == dia) )
@@ -110,11 +111,8 @@ nodoLista * borrarNodo(nodoLista* lista,nodoLista * nodo)
 
 nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo)
 {
-    printf("\nhola2");
     if (lista)
     {
-        printf("\nhola3");
-
         if (
             izqMasChica(nuevoNodo->dato.anio,
                         nuevoNodo->dato.mes,
@@ -130,6 +128,8 @@ nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo)
         {
             lista->siguiente = agregarEnOrden(lista->siguiente,nuevoNodo);
         }
+    } else {
+            lista = nuevoNodo;
     }
 
     return lista;
@@ -149,7 +149,6 @@ nodoLista * borrarTodaLaLista(nodoLista * lista)
 
 void muestraLista(nodoLista * lista)
 {
-    printf("\nholaaa");
     if (lista)
     {
         muestraNodo(lista);
@@ -159,9 +158,7 @@ void muestraLista(nodoLista * lista)
 
 void muestraNodo(nodoLista * nodo)
 {
-    //muestraConsumo(nodo->dato);
-
-    printf("\n\t%d",nodo->dato.datosConsumidos);
+    mostrarUnConsumo(nodo->dato);
 }
 
 nodoLista * eliminarPrimerNodo(nodoLista * lista)
