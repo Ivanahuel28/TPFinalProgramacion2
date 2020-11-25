@@ -4,13 +4,14 @@
 #include "arbolCliente.h"
 
 ////////////////////ESTADISTICAS/////////////////////////////
-void muestraEstadisticas(nodoArbol* arbolClientes);
-int gastosTotales(nodoArbol* arbolClientes, int nroCliente);
-int gastoMinimo(nodoArbol* arbolClientes, int nroCliente);
-int gastoMaximo(nodoArbol* arbolClientes, int nroCliente);
+void controlarDetalleCliente(nodoArbol* arbolClientes);
+int gastosTotales(nodoLista* consumos);
+int gastoMinimo(nodoLista* consumos);
+int gastoMaximo(nodoLista* consumos);
+void muestraEstadisticas(nodoLista * listaConsumos);
 
 ////////////////////////CONSUMOS/////////////////////////
-void muestraConsumos(nodoArbol* arbolClientes, int nroClientes);
+void muestraConsumos(nodoLista * consumos);
 int sumaConsumosXMes(nodoArbol* arbolClientes, int nroCliente, int mes);
 
 #endif // ESTADISTICAS_H_INCLUDED

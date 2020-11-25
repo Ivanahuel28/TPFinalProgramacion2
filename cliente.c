@@ -128,7 +128,31 @@ int ultimoIdCliente() {
 }
 
 void mostrarUnCliente(stCliente c){
-    printf("\t %d | %s | %s | %s | %s | %s | %s | %s \n", c.nroCliente, c.nombre, c.apellido, c.dni, c.email, c.domicilio, c.movil, c.baja ? "SI" : "NO");
+    char nroClienteF[30] = "";
+    formatearCeldaEntero(c.nroCliente,nroClienteF, 14);
+
+    char nombreF[30] = "";
+    formatearCeldaString(c.nombre,nombreF, 17);
+
+    char apellidoF[30] = "";
+    formatearCeldaString(c.apellido,apellidoF, 19);
+
+    char dniF[30] = "";
+    formatearCeldaString(c.dni,dniF, 11);
+
+    char emailF[30] = "";
+    formatearCeldaString("ivazquez@hotmail.com",emailF, 22);
+
+    char domicilioF[30] = "";
+    formatearCeldaString(c.domicilio,domicilioF, 18);
+
+    char movilF[30] = "";
+    formatearCeldaString(c.movil,movilF, 12);
+
+    char bajaF[30] = "";
+    formatearCeldaString(c.baja ? "SI" : "NO" ,bajaF, 7);
+
+    printf("%s|%s%s%s%s%s%s%s%s\n",TAB ,nroClienteF , nombreF, apellidoF, dniF, emailF, domicilioF, movilF,bajaF );
 }
 
 void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
@@ -137,56 +161,26 @@ void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
     int length = strlen(aux);
 
     if( length < tamanoMaximo - 1) {
-            for(int i = 0; i < length; i++){
-                formateado[i] = aux[i];
-            }
+            int espacioVacio = tamanoMaximo - 1 - length;
+            int mitad = espacioVacio / 2;
 
-            for(int i = length; i < tamanoMaximo; i++){
+            for(int i = 0; i < mitad; i++){
                 formateado[i] = ' ';
             }
+
+            strcat(formateado, aux);
+
+            for(int i = length + mitad; i < tamanoMaximo; i++){
+                formateado[i] = ' ';
+            }
+
             formateado[tamanoMaximo - 1] = '|';
 
     } else {
 
-
-    }
-
-}
-
-
-
-
-
-
-
-
-/*
-void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
-
-    char aux[100];
-    itoa(valor, aux, 10);
-    int length = strlen(aux);
-
-    if( length < tamanoMaximo - 1) {
-
-        int espacioVacio = tamanoMaximo - 1 - length;
-        int mitad = espacioVacio / 2;
-
-        for(int i = 0; i < mitad - 1; i++ ){
-            formateado[i] = " ";
+        for(int i = 0; i < tamanoMaximo; i++){
+            formateado[i] = aux[i];
         }
-
-        strcat(formateado, aux);
-
-        for(int i = mitad + length - 1; i < tamanoMaximo ; i++ ){
-            formateado[i] = " ";
-        }
-        formateado[tamanoMaximo - 1] = '|';
-
-
-    } else {
-
-        strcpy(formateado, aux);
         formateado[tamanoMaximo - 1] = '|';
 
     }
@@ -195,30 +189,30 @@ void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
 
 void formatearCeldaString(char valor[], char formateado[] ,int tamanoMaximo) {
 
-
     int length = strlen(valor);
 
-
-    if( length < tamanoMaximo) {
+    if( length < tamanoMaximo - 1) {
 
         int espacioVacio = tamanoMaximo - 1 - length;
         int mitad = espacioVacio / 2;
-        for(int i = 0; i < mitad; i++ ){
+
+        for(int i = 0; i < mitad; i++){
             formateado[i] = ' ';
         }
+
         strcat(formateado, valor);
 
-        for(int i = mitad + length ; i < tamanoMaximo ; i++ ){
+        for(int i = length + mitad; i < tamanoMaximo; i++){
             formateado[i] = ' ';
         }
 
-        sprintf(formateado);
         formateado[tamanoMaximo - 1] = '|';
-        //printf("%s", formateado);
 
     } else {
-        strcpy(formateado, valor);
+        for(int i = 0; i < tamanoMaximo; i++){
+            formateado[i] = valor[i];
+        }
         formateado[tamanoMaximo - 1] = '|';
     }
 
-}*/
+}

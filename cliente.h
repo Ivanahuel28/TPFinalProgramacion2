@@ -1,6 +1,7 @@
 #ifndef CLIENTE_H_INCLUDED
 #define CLIENTE_H_INCLUDED
 
+#define TAB "\t\t"
 #define AR_CLIENTES "clientes.dat"
 #include <stdio.h>
 #include <stdlib.h>

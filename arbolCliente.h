@@ -1,6 +1,7 @@
 #ifndef ARBOLCLIENTE_H_INCLUDED
 #define ARBOLCLIENTE_H_INCLUDED
 #define AR_CLIENTES "clientes.dat"
+#define TAB "\t\t"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,7 +31,7 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo);
 
 /*MUESTRA / RECORRIDO*/
 void mostrarArbolClientes(nodoArbol * arbol);
-
+void footerDeCliente();
 /*BAJA*/
 void darDeBajaCliente(nodoArbol* nodoCliente);
 void controlarBajaCliente(nodoArbol* arbolClientes);

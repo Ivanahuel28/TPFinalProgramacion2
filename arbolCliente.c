@@ -163,7 +163,7 @@ void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
 
         } else {
 
-            agregarEnOrden(cliente->consumos, crearNodo(c));
+            cliente->consumos = agregarEnOrden(cliente->consumos, crearNodo(c));
             agregarUnConsumo(c);
 
         }
@@ -923,16 +923,29 @@ void menuListadoClientes(nodoArbol * arbol)
     } while ( op != 27);
 }
 
+
 void encabezado()
 {
-    printf("\n\t___________________________________________________________________________________________");
-    printf("\n\n\t[1]- FILTRAR [2] - VER TODO [3] - MODIFICAR CLIENTE [4] - VER DETALLE [ESC] - SALIR");
-    printf("\n\t___________________________________________________________________________________________\n");
+    printf("\n%s%s--------------------------------------------------------------------------------------", TAB, TAB);
+    printf("\n%s%s|                                                                                    |", TAB, TAB);
+    printf("\n%s%s|(1) FILTRAR  | (2) VER TODO | (3) MODIFICAR CLIENTE | (4) VER DETALLE | (ESC) SALIR |", TAB, TAB);
+    printf("\n%s%s|                                                                                    |", TAB, TAB);
+    printf("\n%s%s--------------------------------------------------------------------------------------\n", TAB, TAB);
+}
+
+void footerDeCliente()
+{
+    printf("%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
 }
 
 void headerDeCliente()
 {
-    printf("\n\n\t Numero de Cliente | Nombre | Apellido | DNI | Email | Domicilio | Movil | Baja \n\n");
+    printf("\n%s-------------------------------------------------------------------------------------------------------------------------", TAB);
+    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
+    printf("\n%s| Nro Cliente |     Nombre     |     Apellido     |    DNI   |        Email        |    Domicilio    |   Movil   | Baja |", TAB);
+    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
+    printf("\n%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
+
 }
 
 void menuMostrarFiltrando(nodoArbol * arbol)
@@ -1066,6 +1079,7 @@ void mostrarArbolClientesNuevo(nodoArbol * arbol)
         encabezado();
         headerDeCliente();
         mostrarArbolClientesFiltrado(arbol,filtro);
+        footerDeCliente();
 
         fflush(stdin);
         op = getch();
@@ -1088,8 +1102,7 @@ void mostrarArbolClientesNuevo(nodoArbol * arbol)
                 break;
 
             case Cuatro:
-                muestraEstadisticas(arbol);
-                muestraConsumos(arbol,1);
+                controlarDetalleCliente(arbol);
                 break;
 
             default:

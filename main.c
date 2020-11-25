@@ -38,7 +38,7 @@ int main()
     mostrarArbolClientes(arbolClientes);
 */
 
-    generarArchivoClientesAleatorio(AR_CLIENTES, 100);
+    //generarArchivoClientesAleatorio(AR_CLIENTES, 100);
    arbolClientes = cargarArbolArchivos(AR_CLIENTES, AR_CONSUMOS, arbolClientes);
 
    //arbolClientes = cargarClientesManual(arbolClientes);
@@ -48,7 +48,7 @@ int main()
    //mostrarArbolClientes(arbolClientes);
    //menuListadoClientes(arbolClientes);
 
-    // controlarCargaManual(arbolClientes);
+    //controlarCargaManual(arbolClientes);
 
 
     mostrarArbolClientesNuevo(arbolClientes);
@@ -56,7 +56,7 @@ int main()
     //char valor[7] = "1234567";
     /*int valor = 1234567;
     char formateado[11] = "";
-    formatearCeldaEntero(valor,formateado,10);
+    formatearCeldaEntero(valor,formateado,6);
     printf("%s", formateado);*/
     system("pause");
     return 0;
