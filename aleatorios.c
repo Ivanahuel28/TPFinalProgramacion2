@@ -65,7 +65,6 @@ stCliente getClienteRandom()
 	return aux;
 }
 
-
 /*************************************************************//**
 *
 * \brief Funcion que asigna al string recibido un apellido al azar
@@ -99,8 +98,8 @@ void getNombre(char nombre[])
 
 /*************************************************************//**
 *
-* \brief Funcion que retorna un DNI entre 20 y 50 millones
-* \return int;
+* \brief Funcion que retorna un DNI al azar
+* \return void;
 *
 *****************************************************************/
 void getDNI(char dni[]){
@@ -110,31 +109,33 @@ void getDNI(char dni[]){
     itoa((rand()%(368-208)+208) * (rand()%(368-208)+208) * (rand()%(368-208)+208),dni,10); // de 50 a 9 millones
 }
 
-
 /*************************************************************//**
 *
-* \brief Funcion que elabora un email por parametros recibidos
-* \return int;
+* \brief Funcion que elabora un email por el cliente recibido
+* \param char email[], string a cargar con email
+* \param stCliente cliente, cliente al que se le generará el mail
+* \return void;
 *
 *****************************************************************/
 void getEMail(char email[],stCliente cliente)
 {
-    //char ultimos3[3];
     char dominios [][15] = {"@gmail.com","@live.com.ar"};
 
-    strcpy(email,"");   //limpia
+    email[0] = cliente.nombre[0];
+
+    email[1] = '\0';
 
     strcat(email,cliente.apellido); //agrega apellido
-    strcat(email,"."); // agrega punto separador
-    strcat(email,cliente.nombre); //agrega nombre
-
-    //strcpy(ultimos3,dni[5]); // obtengo ultimos 3 digitos
-
-    //strcat(email,ultimos3);    /// copio ultimos 3 digitos del DNI
 
     strcat(email,dominios[rand()%( sizeof(dominios) / (sizeof(char)*15) )]);
 }
 
+/*************************************************************//**
+*
+* \brief Funcion que retorna un domicilio al azar
+* \return void;
+*
+*****************************************************************/
 void getDomicilio(char domicilio[])
 {
     char calles[][30] = {"San Juan","Funes","Gaboto","San Martin","Colon","Rivadavia", "Alsina", "Roca", "Mitre", "Belgrano",
@@ -152,6 +153,12 @@ void getDomicilio(char domicilio[])
     strcat(domicilio,nro);
 }
 
+/*************************************************************//**
+*
+* \brief Funcion que retorna un numero de movil al azar
+* \return void;
+*
+*****************************************************************/
 void getMovil(char movil[])
 {
     strcpy(movil,"223 4");
@@ -161,4 +168,70 @@ void getMovil(char movil[])
     itoa(rand()%888888+111111,nro,10);
 
     strcat(movil,nro);
+}
+
+/*************************************************************//**
+*
+* \brief genera un archivo con consumos, a partir del archivo de clientes
+* \param char nomArchConsumos[], nombre del archivo de consumos, (se sobreescribira)
+* \param char nomArchClientes[], nombre del archivo de clientes
+* \return void;
+*
+*****************************************************************/
+void generarArchConsumosAleatorios(char nomArchConsumos[],char nomArchClientes[])
+{
+    FILE * pArchConsumos = fopen(nomArchConsumos,"wb");
+    FILE * pArchClientes = fopen(nomArchClientes,"rb");
+
+    stCliente cliente;
+    stConsumo consumos[36]; // 12 * 3 = 36 // constante
+    int nuevoIdConsumo = ultimoIdConsumos() + 1 ;
+
+    if (pArchConsumos && pArchClientes)
+    {
+        while( fread(&cliente,sizeof(stCliente),1,pArchClientes) > 0 )
+        {
+            nuevoIdConsumo = getArrConsumosAleatorios(consumos,cliente.idCliente,nuevoIdConsumo);
+
+            fwrite(consumos,sizeof(stConsumo),sizeof(consumos)/sizeof(stConsumo),pArchConsumos);
+        }
+        fclose(pArchClientes);
+        fclose(pArchConsumos);
+    }
+}
+
+/*************************************************************//**
+*
+* \brief genera un arreglo de consumos aleatorios para el cliente recibido
+* \param stConsumo arr[], arreglo de consumos
+* \param int idCliente, numero de Id del cliente para el cual seran los consumos
+* \param int nuevoIdConsumos, numero de id desde el cual se generaran los nuevos consumos
+* \return int (arr[i-1].idConsumo + 1), nuevo id para el proximo consumo;
+*
+*****************************************************************/
+int getArrConsumosAleatorios(stConsumo arr[],int idCliente,int nuevoIdConsumos)
+{
+    int i = 0 ;
+
+    for( int m = 1 ; m<13 ; m++ ) // m = mes
+    {
+        for( int d = 1 ; d < 4 ; d++ ) // d = decena
+        {
+            arr[i].anio = 2020 ; // constante
+            arr[i].mes = m ;
+            arr[i].dia = (rand()%8+1) + ((d-1) * 10);
+
+            arr[i].datosConsumidos = rand()%500+500;
+
+            arr[i].idCliente = idCliente;
+
+            arr[i].idConsumo = nuevoIdConsumos + i;
+
+            arr[i].baja = 0;
+
+            i++;
+        }
+    }
+
+    return (arr[i-1].idConsumo + 1) ;
 }
