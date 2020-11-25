@@ -22,7 +22,10 @@ typedef struct {
 
 void agregarUnCliente(stCliente c);
 int validaEmail(char email[]);
-
+void mostrarFiltros();
+void encabezado();
+void footerDeCliente();
+void headerDeCliente();
 
 void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo);
 void formatearCeldaString(char valor[],char formateado[], int tamanoMaximo);

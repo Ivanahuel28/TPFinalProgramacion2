@@ -60,9 +60,9 @@ nodoArbol * NMI(nodoArbol * arbol);
 
 /*MENU LISTADO CLIENTES*/
 void menuListadoClientes(nodoArbol * arbol);
-void encabezado();
+
 void menuMostrarFiltrando(nodoArbol * arbol);
-void mostrarOpcionesDeFiltro();
+
 void mostrarFiltrandoXApellido(nodoArbol * arbol,char apellido[]);
 void mostrarFiltrandoXNombre(nodoArbol * arbol,char nombre[]);
 void mostrarFiltrandoXEstado(nodoArbol * arbol,int estado);

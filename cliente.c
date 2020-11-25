@@ -127,6 +127,48 @@ int ultimoIdCliente() {
     return id;
 }
 
+void encabezado()
+{
+    printf("\n%s%s--------------------------------------------------------------------------------------", TAB, TAB);
+    printf("\n%s%s|                                                                                    |", TAB, TAB);
+    printf("\n%s%s|(1) FILTRAR  | (2) VER TODO | (3) MODIFICAR CLIENTE | (4) VER DETALLE | (ESC) SALIR |", TAB, TAB);
+    printf("\n%s%s|                                                                                    |", TAB, TAB);
+    printf("\n%s%s--------------------------------------------------------------------------------------\n", TAB, TAB);
+}
+
+void footerDeCliente()
+{
+    printf("%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
+}
+
+void headerDeCliente()
+{
+    printf("\n%s-------------------------------------------------------------------------------------------------------------------------", TAB);
+    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
+    printf("\n%s| Nro Cliente |     Nombre     |     Apellido     |    DNI   |        Email        |    Domicilio    |   Movil   | Baja |", TAB);
+    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
+    printf("\n%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
+
+}
+
+/**
+* \brief Funcion que muestra las opciones de los filtros de clientes
+**/
+void mostrarFiltros() {
+
+    printf("\n ----------- FILTRAR POR ---------------");
+    printf("\n ----------------------------------------");
+    printf("\n 1) Nro Cliente ......: ");
+    printf("\n 2) Nombre ...........: ");
+    printf("\n 3) Apellido .........: ");
+    printf("\n 4) DNI ..............: ");
+    printf("\n 5) Email ............: ");
+    printf("\n 6) Domicilio ........: ");
+    printf("\n 7) Movil ............: ");
+    printf("\n 8) Baja .............: ");
+    printf("\n\n\n Cancelar (ESC)     ");
+
+}
 
 
 void mostrarUnCliente(stCliente c){

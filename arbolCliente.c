@@ -623,6 +623,56 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo){
 }
 ///////////////// FUNCIONES DE VISUALIZACION ////////////////
 
+void mostrarArbolClientesNuevo(nodoArbol * arbol)
+{
+    char op;
+    stFiltro filtro;
+
+    limpiarFiltro(&filtro);
+
+    do
+    {
+        system("cls");
+        encabezado();
+        headerDeCliente();
+        mostrarArbolClientesFiltrado(arbol,filtro);
+        footerDeCliente();
+
+        fflush(stdin);
+        op = getch();
+
+        system("cls");
+
+        switch ( op )
+        {
+            case Uno:
+                controlarFiltros(&filtro);
+                break;
+
+            case Dos:
+                limpiarFiltro(&filtro);
+                break;
+
+            case Tres:
+
+                arbol = controlarModificacionCliente(arbol);
+                break;
+
+            case Cuatro:
+                controlarDetalleCliente(arbol);
+                break;
+
+            default:
+                break;
+        }
+
+
+        system("cls");
+
+    } while ( op != ESC );
+}
+
+
 /*************************************************************//**
 *
 * \brief muestra el contenido del arbol de cliente
@@ -635,9 +685,7 @@ void mostrarArbolClientes(nodoArbol * arbol)
     if (arbol)
     {
         mostrarArbolClientes(arbol->izq);
-        //printf("%d \n",arbol->dato.nroCliente);
         mostrarUnCliente(arbol->dato);
-        //mostrarCliente(arbol->dato);// adaptar nombre de la funcion
         mostrarArbolClientes(arbol->der);
     }
 }
@@ -879,192 +927,10 @@ nodoArbol * NMI(nodoArbol * arbol)
     return arbol;
 }
 
-//////////////MENU LISTADO CLIENTES/////////////////////
-void menuListadoClientes(nodoArbol * arbol)
-{
-    char op ;
-
-    do
-    {
-        system("cls");
-        encabezado();
-        mostrarArbolClientes(arbol);
-
-        fflush(stdin);
-        op = getch();
-
-        system("cls");
-
-        switch (op)
-        {
-            case '1':
-                menuMostrarFiltrando(arbol);
-                break;
-
-            case '2':
-                headerDeCliente();
-                mostrarArbolClientes(arbol);
-                system("pause");
-                break;
-
-            case '3':
-                /// modificar cliente
-                break;
-
-            case '4':
-                /// ver detalle;
-                break;
-
-            default:
-                printf("\n\tOpcion invalida");
-                break;
-        }
-
-    } while ( op != 27);
-}
 
 
-void encabezado()
-{
-    printf("\n%s%s--------------------------------------------------------------------------------------", TAB, TAB);
-    printf("\n%s%s|                                                                                    |", TAB, TAB);
-    printf("\n%s%s|(1) FILTRAR  | (2) VER TODO | (3) MODIFICAR CLIENTE | (4) VER DETALLE | (ESC) SALIR |", TAB, TAB);
-    printf("\n%s%s|                                                                                    |", TAB, TAB);
-    printf("\n%s%s--------------------------------------------------------------------------------------\n", TAB, TAB);
-}
+////////////////////// DETALLE DE CLIENTE /////////////////////
 
-void footerDeCliente()
-{
-    printf("%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
-}
-
-void headerDeCliente()
-{
-    printf("\n%s-------------------------------------------------------------------------------------------------------------------------", TAB);
-    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
-    printf("\n%s| Nro Cliente |     Nombre     |     Apellido     |    DNI   |        Email        |    Domicilio    |   Movil   | Baja |", TAB);
-    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
-    printf("\n%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
-
-}
-
-void menuMostrarFiltrando(nodoArbol * arbol)
-{
-    char op, apellido[30], nombre[30];
-
-    do
-    {
-        system("cls");
-        mostrarOpcionesDeFiltro();
-        op = getch();
-
-        system("cls");
-
-        switch (op)
-        {
-            case '1':
-                printf("\n\tIngrese un Apellido, o parte del mismo :");
-                fflush(stdin);
-                gets(apellido);
-                headerDeCliente();
-                mostrarFiltrandoXApellido(arbol, apellido);
-                break;
-
-            case '2':
-                printf("\n\tIngrese un Nombre, o parte del mismo :");
-                fflush(stdin);
-                gets(nombre);
-                headerDeCliente();
-                mostrarFiltrandoXNombre(arbol, nombre);
-                break;
-
-            case '3':
-                headerDeCliente();
-                mostrarFiltrandoXEstado(arbol,0);
-                break;
-
-            case '4':
-                headerDeCliente();
-                mostrarFiltrandoXEstado(arbol,1);
-                break;
-
-            default:
-                printf("\n\tOpcion invalida");
-                break;
-
-        }
-
-        system("pause");
-
-    } while ( op != 27 );
-}
-
-void mostrarOpcionesDeFiltro()
-{
-    printf("\n\n\tSeleccione una opcion : ");
-    printf("\n\t\t[1] - Por Apellido : ");
-    printf("\n\t\t[2] - Por Nombre : ");
-    printf("\n\t\t[3] - En Alta : ");
-    printf("\n\t\t[4] - En Baja : ");
-    printf("\n\n\t\t[ESC] - Cancelar");
-}
-
-void mostrarFiltrandoXApellido(nodoArbol * arbol,char apellido[])
-{
-    if (arbol)
-    {
-        if ( strncmp(arbol->dato.apellido,apellido,strlen(apellido)) == 0)
-        {
-            mostrarUnCliente(arbol->dato);
-        }
-
-        mostrarFiltrandoXApellido(arbol->izq,apellido);
-        mostrarFiltrandoXApellido(arbol->der,apellido);
-    }
-}
-
-void mostrarFiltrandoXNombre(nodoArbol * arbol,char nombre[])
-{
-    if (arbol)
-    {
-        if ( strncmp(arbol->dato.nombre,nombre,strlen(nombre)) == 0)
-        {
-            mostrarUnCliente(arbol->dato);
-        }
-
-        mostrarFiltrandoXNombre(arbol->izq,nombre);
-        mostrarFiltrandoXNombre(arbol->der,nombre);
-    }
-}
-
-void mostrarFiltrandoXEstado(nodoArbol * arbol,int estado)
-{
-    if (arbol)
-    {
-        if ( arbol->dato.baja == estado )
-        {
-            mostrarUnCliente(arbol->dato);
-        }
-
-        mostrarFiltrandoXEstado(arbol->izq,estado);
-        mostrarFiltrandoXEstado(arbol->der,estado);
-    }
-}
-
-void limpiarFiltro(stFiltro * filtro)
-{
-    strcpy(filtro->nroCliente,"");
-    strcpy(filtro->nombre,"");
-    strcpy(filtro->apellido,"");
-    strcpy(filtro->dni,"");
-    strcpy(filtro->email,"");
-    strcpy(filtro->domicilio,"");
-    strcpy(filtro->movil,"");
-
-    filtro->baja = -1;
-
-    filtro->activado = 0;
-}
 
 void controlarDetalleCliente(nodoArbol* arbolClientes){
     int nroCliente;
@@ -1095,72 +961,21 @@ void controlarDetalleCliente(nodoArbol* arbolClientes){
 }
 
 
-void mostrarArbolClientesNuevo(nodoArbol * arbol)
+//////////////////////FILTROS/////////////////////
+
+void limpiarFiltro(stFiltro * filtro)
 {
-    char op;
-    stFiltro filtro;
+    strcpy(filtro->nroCliente,"");
+    strcpy(filtro->nombre,"");
+    strcpy(filtro->apellido,"");
+    strcpy(filtro->dni,"");
+    strcpy(filtro->email,"");
+    strcpy(filtro->domicilio,"");
+    strcpy(filtro->movil,"");
 
-    limpiarFiltro(&filtro);
+    filtro->baja = -1;
 
-    do
-    {
-        system("cls");
-        encabezado();
-        headerDeCliente();
-        mostrarArbolClientesFiltrado(arbol,filtro);
-        footerDeCliente();
-
-        fflush(stdin);
-        op = getch();
-
-        system("cls");
-
-        switch ( op )
-        {
-            case Uno:
-                controlarFiltros(&filtro);
-                break;
-
-            case Dos:
-                limpiarFiltro(&filtro);
-                break;
-
-            case Tres:
-
-                arbol = controlarModificacionCliente(arbol);
-                break;
-
-            case Cuatro:
-                controlarDetalleCliente(arbol);
-                break;
-
-            default:
-                break;
-        }
-
-
-        system("cls");
-
-    } while ( op != ESC );
-}
-
-/**
-* \brief Funcion que muestra las opciones de los filtros de clientes
-**/
-void mostrarFiltros() {
-
-    printf("\n ----------- FILTRAR POR ---------------");
-    printf("\n ----------------------------------------");
-    printf("\n 1) Nro Cliente ......: ");
-    printf("\n 2) Nombre ...........: ");
-    printf("\n 3) Apellido .........: ");
-    printf("\n 4) DNI ..............: ");
-    printf("\n 5) Email ............: ");
-    printf("\n 6) Domicilio ........: ");
-    printf("\n 7) Movil ............: ");
-    printf("\n 8) Baja .............: ");
-    printf("\n\n\n Cancelar (ESC)     ");
-
+    filtro->activado = 0;
 }
 
 void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro)
