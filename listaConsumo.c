@@ -1,10 +1,19 @@
 #include "listaConsumo.h"
 
+
+/**************************************************************************
+* \brief Inicializa una lista
+* \return nodoLista inicial
+**************************************************************************/
 nodoLista * inicLista()
 {
    return NULL;
 }
 
+/**************************************************************************
+* \brief Crea un nodo lista a partr de un consumo
+* \return nodoLista nodo creado
+**************************************************************************/
 nodoLista * crearNodo(stConsumo dato)
 {
     nodoLista * nuevo = (nodoLista*) malloc(sizeof(nodoLista));
@@ -13,6 +22,11 @@ nodoLista * crearNodo(stConsumo dato)
     return nuevo;
 }
 
+
+/**************************************************************************
+* \brief Agrega un nodo al principio
+* \return nodoLista inicial
+**************************************************************************/
 nodoLista * agregarPpio (nodoLista * lista, nodoLista * nuevoNodo)
 {
     if(lista == NULL)
@@ -28,6 +42,10 @@ nodoLista * agregarPpio (nodoLista * lista, nodoLista * nuevoNodo)
     return lista;
 }
 
+/**************************************************************************
+* \brief Da de baja una lista de consumos en la lista y en el archivo
+* \return nodoLista inicial
+**************************************************************************/
 void darDeBajaListaConsumos(nodoLista * lista) {
 
     nodoLista * aux = lista;

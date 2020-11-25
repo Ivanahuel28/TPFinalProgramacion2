@@ -419,6 +419,10 @@ nodoLista * formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoLista *
 
 ///////////////// FUNCIONES DE BAJA /////////////////
 
+/**************************************************************************
+* \brief Funcion que controla la baja de un consumo del arbol de clientes y del archivo
+* \param nodoArbol arbol de clientes del que dar de baja el consumo
+**************************************************************************/
 void controlarBajaConsumo(nodoArbol * arbolClientes) {
 
     nodoArbol* nodoCliente;
@@ -450,6 +454,7 @@ void controlarBajaConsumo(nodoArbol * arbolClientes) {
         system("pause");
     }
 }
+
 
 /**************************************************************************
 * \brief Da de baja un cliente y sus consumos
@@ -621,8 +626,17 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo){
     }
     return arbol;
 }
+
+
 ///////////////// FUNCIONES DE VISUALIZACION ////////////////
 
+
+/*************************************************************//**
+*
+* \brief Controla las distintas funciones para visualizar un arbol de clientes
+* \param nodoArbol arbol de clientes
+*
+*****************************************************************/
 void mostrarArbolClientesNuevo(nodoArbol * arbol)
 {
     char op;
@@ -931,7 +945,12 @@ nodoArbol * NMI(nodoArbol * arbol)
 
 ////////////////////// DETALLE DE CLIENTE /////////////////////
 
-
+/*************************************************************//**
+*
+* \brief Funcion que controla la visualizacion del detallede un cliente
+* \param nodoArbol* puntero a la raiz del arbol
+*
+*****************************************************************/
 void controlarDetalleCliente(nodoArbol* arbolClientes){
     int nroCliente;
 
@@ -963,6 +982,12 @@ void controlarDetalleCliente(nodoArbol* arbolClientes){
 
 //////////////////////FILTROS/////////////////////
 
+/*************************************************************//**
+*
+* \brief Limpia el filtro que se pasa por referencia
+* \param filtro * puntero al filtro
+*
+*****************************************************************/
 void limpiarFiltro(stFiltro * filtro)
 {
     strcpy(filtro->nroCliente,"");
@@ -978,6 +1003,14 @@ void limpiarFiltro(stFiltro * filtro)
     filtro->activado = 0;
 }
 
+
+/*************************************************************//**
+*
+* \brief Mustra el arbol de clientes usando un filtro
+* \param nodoArbol* puntero a la raiz del arbol a mostrar
+* \param stFiltro* filtro a usar
+*
+*****************************************************************/
 void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro)
 {
     if (arbol)
@@ -1011,11 +1044,11 @@ void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro)
 }
 
 
-/**
+/*****************************************************
 * \brief Funcion que controla los filtros de clientes
 * \param stCliente arreglo de clientes
 * \return int validos del arreglo
-**/
+******************************************************/
 void controlarFiltros(stFiltro * filtro){
 
     char opcion;

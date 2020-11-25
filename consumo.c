@@ -93,10 +93,10 @@ int buscaPosConsumos(int id){
     return pos;
 }
 
-/**
+/******************************************
 * \brief Muestra un consumo por pantalla
 * \param stConsumo Consumo a mostrar
-**/
+********************************************/
 void mostrarUnConsumo(stConsumo c){
     //Esta funcion deberia trabajar sobre un arreglo, por que asi es ineficiente, es algo a laburar luego la optimizacion.
     //int nroCliente = obtenerNroClientePorID(c.idCliente);

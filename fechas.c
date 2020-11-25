@@ -45,6 +45,15 @@ int fechaRandom( int *y, int *m, int *d ){
 }
 
 
+/**************************************************************************
+* \brief Compara dos fechas y retorna 1 si la fecha de la izquiera es mas chica que la derecha, 0 si no
+* \param yi Anio izquierda
+* \param mi Mes izquierda
+* \param mi Dia izquierda
+* \param yd Anio derecha
+* \param md Mes derecha
+* \param md Dia derecha
+**************************************************************************/
 int izqMasChica(int yi, int mi, int di, int yd, int md, int dd) {
 
 

@@ -127,6 +127,11 @@ int ultimoIdCliente() {
     return id;
 }
 
+/*************************************************************//**
+*
+* \brief Muestra las opciones de visualizacion como encabezado
+*
+*****************************************************************/
 void encabezado()
 {
     printf("\n%s%s--------------------------------------------------------------------------------------", TAB, TAB);
@@ -136,11 +141,21 @@ void encabezado()
     printf("\n%s%s--------------------------------------------------------------------------------------\n", TAB, TAB);
 }
 
+/*************************************************************//**
+*
+* \brief Muestra una barra a modo de footer de lista de clientes
+*
+*****************************************************************/
 void footerDeCliente()
 {
     printf("%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
 }
 
+/*************************************************************//**
+*
+* \brief Muestra las propiedades de los clientes como encabezado de la lista de clientes
+*
+*****************************************************************/
 void headerDeCliente()
 {
     printf("\n%s-------------------------------------------------------------------------------------------------------------------------", TAB);
@@ -151,9 +166,9 @@ void headerDeCliente()
 
 }
 
-/**
+/**********************************************************************
 * \brief Funcion que muestra las opciones de los filtros de clientes
-**/
+********************************************************************/
 void mostrarFiltros() {
 
     printf("\n ----------- FILTRAR POR ---------------");
@@ -170,7 +185,12 @@ void mostrarFiltros() {
 
 }
 
-
+/*************************************************************//**
+*
+* \brief Muestra un cliente formateado correctamente
+* \param stCliente cliente que mostrar
+*
+*****************************************************************/
 void mostrarUnCliente(stCliente c){
     char nroClienteF[30] = "";
     formatearCeldaEntero(c.nroCliente,nroClienteF, 14);
@@ -199,6 +219,14 @@ void mostrarUnCliente(stCliente c){
     printf("%s|%s%s%s%s%s%s%s%s\n",TAB ,nroClienteF , nombreF, apellidoF, dniF, emailF, domicilioF, movilF,bajaF );
 }
 
+/*************************************************************//**
+*
+* \brief Formatea un entero para que entre dentro de un tamaño especifico y le pone un separador
+* \param int valor entero a formatear
+* \param char string al que pasar el valor formateado
+* \param int tamaño al que formatear el valor
+*
+*****************************************************************/
 void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
     char aux[100];
     itoa(valor, aux, 10);
@@ -231,6 +259,15 @@ void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
 
 }
 
+
+/*************************************************************//**
+*
+* \brief Formatea un entero para que entre dentro de un tamaño especifico y le pone un separador
+* \param char string a formatear
+* \param char string al que pasar el valor formateado
+* \param int tamaño al que formatear el valor
+*
+*****************************************************************/
 void formatearCeldaString(char valor[], char formateado[] ,int tamanoMaximo) {
 
     int length = strlen(valor);
