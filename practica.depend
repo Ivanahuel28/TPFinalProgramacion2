@@ -103,10 +103,10 @@
 1605990439 c:\users\usuario\desktop\tp final\estadisticas.h
 	"arbolCliente.h"
 
-1606271395 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.c
+1606273436 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.c
 	"arbolCliente.h"
 
-1606266406 c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.h
+1606273377 c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -118,7 +118,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1605748427 c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.h
+1606273459 c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.h
 	<stdio.h>
 	<stdlib.h>
 	"consumo.h"
@@ -129,7 +129,7 @@
 
 1605385606 c:\users\ignacio\desktop\2 cuatrimestre\tp final\definiciones.h
 
-1606265912 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.c
+1606273436 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.c
 	"cliente.h"
 
 1606181234 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\consumo.c

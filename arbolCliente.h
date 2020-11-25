@@ -32,6 +32,7 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo);
 /*MUESTRA / RECORRIDO*/
 void mostrarArbolClientes(nodoArbol * arbol);
 void footerDeCliente();
+void controlarDetalleCliente(nodoArbol* arbolClientes);
 /*BAJA*/
 void darDeBajaCliente(nodoArbol* nodoCliente);
 void controlarBajaCliente(nodoArbol* arbolClientes);

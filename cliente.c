@@ -127,6 +127,8 @@ int ultimoIdCliente() {
     return id;
 }
 
+
+
 void mostrarUnCliente(stCliente c){
     char nroClienteF[30] = "";
     formatearCeldaEntero(c.nroCliente,nroClienteF, 14);

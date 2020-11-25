@@ -1,6 +1,7 @@
 #ifndef LISTACONSUMO_H_INCLUDED
 #define LISTACONSUMO_H_INCLUDED
 #define AR_CONSUMOS "consumos.dat"
+#define TAB "\t\t"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +26,12 @@ void muestraLista(nodoLista * lista);
 void muestraNodo(nodoLista * nodo);
 nodoLista * eliminarPrimerNodo(nodoLista * lista);
 stConsumo verPrimero(nodoLista * lista);
+
+int gastosTotales(nodoLista* consumos);
+int gastoMinimo(nodoLista* consumos);
+int gastoMaximo(nodoLista* consumos);
+void muestraEstadisticas(nodoLista * listaConsumos);
+void muestraConsumos(nodoLista * consumos);
 
 
 #endif // LISTACONSUMO_H_INCLUDED

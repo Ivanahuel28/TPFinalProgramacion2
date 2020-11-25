@@ -1066,6 +1066,35 @@ void limpiarFiltro(stFiltro * filtro)
     filtro->activado = 0;
 }
 
+void controlarDetalleCliente(nodoArbol* arbolClientes){
+    int nroCliente;
+
+    printf("\n Ingrese el numero de cliente a realizar las estadisticas: ");
+    fflush(stdin);
+    scanf("%d", &nroCliente);
+    system("cls");
+    nodoArbol * cliente = buscarXNroCliente(arbolClientes, nroCliente);
+    if(cliente) {
+
+        printf("\n\n\n");
+
+        headerDeCliente();
+        mostrarUnCliente(cliente->dato);
+        footerDeCliente();
+        printf("\n\n");
+        muestraEstadisticas(cliente->consumos);
+        printf("\n\n\n");
+        muestraConsumos(cliente->consumos);
+
+    } else {
+        printf("\n El numero de cliente ingresado no existe");
+        system("pause");
+
+    }
+    system("pause");
+}
+
+
 void mostrarArbolClientesNuevo(nodoArbol * arbol)
 {
     char op;
