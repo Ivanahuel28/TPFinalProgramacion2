@@ -1,5 +1,6 @@
 #ifndef CONSUMO_H_INCLUDED
 #define CONSUMO_H_INCLUDED
+#define TAB "\t\t"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +21,7 @@ int buscaPosConsumos(int id);
 void modificarConsumo(stConsumo c);
 void agregarUnConsumo(stConsumo c);
 int ultimoIdConsumos();
-void mostrarUnConsumo(stConsumo c);
+void mostrarUnConsumo(stConsumo c, int nroCliente);
 
 
 #endif // CONSUMO_H_INCLUDED

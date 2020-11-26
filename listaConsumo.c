@@ -165,19 +165,6 @@ nodoLista * borrarTodaLaLista(nodoLista * lista)
     return lista;
 }
 
-void muestraLista(nodoLista * lista)
-{
-    if (lista)
-    {
-        muestraNodo(lista);
-        muestraLista(lista->siguiente);
-    }
-}
-
-void muestraNodo(nodoLista * nodo)
-{
-    mostrarUnConsumo(nodo->dato);
-}
 
 nodoLista * eliminarPrimerNodo(nodoLista * lista)
 {
@@ -194,7 +181,7 @@ stConsumo verPrimero(nodoLista * lista)
 }
 
 /**************************************************************************
-* \brief Función que muestra las estadísticas por Número de Cliente
+* \brief Funciï¿½n que muestra las estadï¿½sticas por Nï¿½mero de Cliente
 * \param nodoArbol arbol de clientes
 **************************************************************************/
 void muestraEstadisticas(nodoLista * listaConsumos){
@@ -228,7 +215,7 @@ void muestraEstadisticas(nodoLista * listaConsumos){
 }
 
 /**************************************************************************
-* \brief Función que retorna la suma de gastos totales por Número de Cliente
+* \brief Funciï¿½n que retorna la suma de gastos totales por Nï¿½mero de Cliente
 * \param nodoLista lista de consumos
 * \return gastos - son los gastos totales
 **************************************************************************/
@@ -248,10 +235,10 @@ int gastosTotales(nodoLista* consumos){
 }
 
 /**************************************************************************
-* \brief Función que retorna el gasto mínimo por Número de Cliente
+* \brief Funciï¿½n que retorna el gasto mï¿½nimo por Nï¿½mero de Cliente
 * \param nodoArbol arbol de clientes
-* \param int número de clientes
-* \return min - gasto mínimo
+* \param int nï¿½mero de clientes
+* \return min - gasto mï¿½nimo
 **************************************************************************/
 int gastoMinimo(nodoLista* consumos){
     int min = 0;
@@ -270,10 +257,10 @@ int gastoMinimo(nodoLista* consumos){
     return min;
 }
 /**************************************************************************
-* \brief Función que retorna el gasto máximo por Número de Cliente
+* \brief Funciï¿½n que retorna el gasto mï¿½ximo por Nï¿½mero de Cliente
 * \param nodoArbol arbol de clientes
-* \param int número de clientes
-* \return max - gasto máximo
+* \param int nï¿½mero de clientes
+* \return max - gasto mï¿½ximo
 **************************************************************************/
 int gastoMaximo(nodoLista* consumos){
     int max = 0;
@@ -293,9 +280,9 @@ int gastoMaximo(nodoLista* consumos){
 }
 
 /**************************************************************************
-* \brief Función que muestra los consumos de un cliente
+* \brief Funciï¿½n que muestra los consumos de un cliente
 * \param nodoArbol arbol de clientes
-* \param int número de cliente
+* \param int nï¿½mero de cliente
 **************************************************************************/
 void muestraConsumos(nodoLista * consumos){
 
@@ -334,3 +321,189 @@ void muestraConsumos(nodoLista * consumos){
 
 }
 
+
+/**************************************************************************
+* \brief Funciï¿½n que muestra los consumos de un cliente
+* \param nodoArbol arbol de clientes
+* \param int nï¿½mero de cliente
+**************************************************************************/
+void muestraConsumosFiltrado(nodoLista * consumos, int nroCliente, stFiltroConsumos filtro){
+
+    while(consumos){
+        if(!filtro.activado){
+            mostrarUnConsumo(consumos->dato, nroCliente);
+        } else {
+            char stringNroCliente[30];
+            itoa(nroCliente,stringNroCliente,10);
+
+            if(
+                ( consumos->dato.dia == filtro.dia || filtro.dia == -1 ) &&
+                ( consumos->dato.mes == filtro.mes || filtro.mes == -1 ) &&
+                ( consumos->dato.anio == filtro.anio || filtro.anio == -1 ) &&
+                ( consumos->dato.baja == filtro.baja || filtro.baja == -1 ) &&
+                ( consumos->dato.datosConsumidos >= filtro.datosConsumidosMin || filtro.datosConsumidosMin == -1 ) &&
+                ( consumos->dato.datosConsumidos <= filtro.datosConsumidosMax || filtro.datosConsumidosMax == -1 ) &&
+                 strncmp(stringNroCliente,filtro.nroCliente,strlen(filtro.nroCliente)) == 0 )
+               {
+                mostrarUnConsumo(consumos->dato, nroCliente);
+             }
+
+        }
+        consumos = consumos->siguiente;
+    }
+
+}
+
+
+
+
+void mostrarFooterDeConsumo() {
+    printf("%s%s--------------------------------------------------------\n", TAB, TAB);
+}
+
+void mostrarHeaderConsumos() {
+    printf("%s%s--------------------------------------------------------\n", TAB, TAB);
+    printf("%s%s| NRO CLIENTE |     FECHA     |     MB     |    BAJA   |\n", TAB, TAB);
+    printf("%s%s--------------------------------------------------------\n", TAB, TAB);
+}
+
+
+void encabezadoEstadisticas(){
+    printf("\n\t\t-----------------------------------------------------------------------------------------");
+    printf("\n\t\t|                                                                                       |");
+    printf("\n\t\t|(1) VER TODO  | (2) FILTRAR | (3) LIQUIDAR MES | (4) MODIFICAR CONSUMO | (ESC) SALIR   |");
+    printf("\n\t\t|                                                                                       |");
+    printf("\n\t\t-----------------------------------------------------------------------------------------\n");
+}
+
+/*************************************************************//**
+*
+* \brief Limpia el filtro que se pasa por referencia
+* \param filtro * puntero al filtro
+*
+*****************************************************************/
+void limpiarFiltroConsumos(stFiltroConsumos * filtro)
+{
+    strcpy(filtro->nroCliente,"");
+    filtro->dia = -1;
+    filtro->mes = -1;
+    filtro->anio = -1;
+    filtro->datosConsumidosMin = -1;
+    filtro->datosConsumidosMax = -1;
+    filtro->baja = -1;
+    filtro->activado = 0;
+}
+
+
+/**
+* \brief FunciÃ³n que retorna la suma de consumos de un mes
+* \param nodoArbol arbol de clientes
+* \param int nÃºmero de clientes
+* \param int mes
+* \return suma - suma de los consumos por mes
+**/
+int sumaConsumosXMes(nodoLista* consumos, int mes){
+    int suma = 0;
+
+    while(consumos){
+        if(consumos->dato.mes == mes && !consumos->dato.baja){
+            suma = suma + consumos->dato.datosConsumidos;
+        }
+        consumos = consumos->siguiente;
+    }
+    return suma;
+}
+int ingresarMes(){
+    int mes = 0;
+
+    printf("\n\t(1) ENERO");
+    printf("\n\t(2) FEBRERO");
+    printf("\n\t(3) MARZO");
+    printf("\n\t(4) ABRIL");
+    printf("\n\t(5) MAYO");
+    printf("\n\t(6) JUNIO");
+    printf("\n\t(7) JULIO");
+    printf("\n\t(8) AGOSTO");
+    printf("\n\t(9) SEPTIEMBRE");
+    printf("\n\t(10) OCTUBRE");
+    printf("\n\t(11) NOVIEMBRE");
+    printf("\n\t(12) DICIEMBRE");
+
+    printf("\n\n\tIngrese el mes a liquidar: ");
+
+    fflush(stdin);
+    scanf("%d", &mes);
+    system("cls");
+    return mes;
+}
+
+void liquidacionMes(nodoLista* consumos){
+    int mes = ingresarMes();
+    int liquidacion = 0;
+    int costo = 0;
+
+    printf("\n\tIngrese el valor por MB: ");
+    scanf("%d", &costo);
+    system("cls");
+    liquidacion = sumaConsumosXMes(consumos, mes) * costo; ///completar costo
+
+    printf("\n\n\tLa liquidacion correspondiente al mes %d es de: $%d\n\n\n", mes, liquidacion);
+}
+
+
+/*****************************************************
+* \brief Funcion que controla los filtros de consumos
+* \param stFiltroConsumos filtro
+******************************************************/
+void controlarFiltrosConsumo(stFiltroConsumos * filtro){
+
+    char opcion;
+
+    mostrarFiltrosConsumos();
+    fflush(stdin);
+    opcion = getch();
+    switch (opcion)
+    {
+    case 49:
+        printf("\n\t Ingrese Nro de Cliente : ");
+        fflush(stdin);
+        gets(filtro->nroCliente);
+        break;
+
+    case 50:
+        printf("\n\t Ingrese Dia : ");
+        scanf("%d", &filtro->dia);
+        break;
+
+    case 51:
+        printf("\n\t Ingrese Mes : ");
+        scanf("%d", &filtro->mes);
+        break;
+
+    case 52:
+        printf("\n\t Ingrese Anio : ");
+        scanf("%d", &filtro->anio);
+        break;
+
+    case 53:
+        printf("\n\t Ingrese Datos Consumidos Minimo : ");
+        scanf("%d", &filtro->datosConsumidosMin);
+        break;
+
+    case 54:
+        printf("\n\t Ingrese Datos Consumidos Maximo : ");
+        scanf("%d", &filtro->datosConsumidosMax);
+        break;
+
+
+    case 55:
+        printf("\n\t Ingrese baja ( 1 - SI | 0 - NO) : ");
+        scanf("%d", &filtro->baja);
+        break;
+    }
+
+    if ( opcion != ESC )
+    {
+        filtro->activado = 1;
+    }
+}

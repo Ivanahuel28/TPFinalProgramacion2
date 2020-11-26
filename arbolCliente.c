@@ -111,25 +111,25 @@ stConsumo cargaManualUnConsumo(nodoArbol * arbolClientes) {
 
     int nroCliente = -1;
     do{
-        printf("\n Ingrese el nro de Cliente......: ");
+        printf("\n\t Ingrese el nro de Cliente......: ");
         scanf("%d", &nroCliente);
         arbolCliente = buscarXNroCliente(arbolClientes, nroCliente);
     }while(nroCliente < 0 || !arbolCliente);
     do{
-        printf("\n Ingrese el Anio................: ");
+        printf("\n\t Ingrese el Anio................: ");
         scanf("%d", &c.anio);
     }while(c.anio < 0 || c.anio > 2999);
     do{
-        printf("\n Ingrese el Mes.................: ");
+        printf("\n\t Ingrese el Mes.................: ");
         scanf("%d", &c.mes);
     }while(c.mes < Enero || c.mes > Diciembre);
     do{
-        printf("\n Ingrese el Dia.................: ");
+        printf("\n\t Ingrese el Dia.................: ");
         scanf("%d", &c.dia);
     }while(!esFechaValida(c.anio, c.mes, c.dia));
 
 
-    printf("\n Ingrese los Datos Consumidos...: ");
+    printf("\n\t Ingrese los Datos Consumidos...: ");
     scanf("%d", &c.datosConsumidos);
 
     c.idCliente = arbolCliente->dato.idCliente;
@@ -160,7 +160,6 @@ void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
             consumo->dato.datosConsumidos += c.datosConsumidos;
             modificarConsumo(consumo->dato);
 
-
         } else {
 
             cliente->consumos = agregarEnOrden(cliente->consumos, crearNodo(c));
@@ -184,6 +183,7 @@ void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
 nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes, stCliente cm){
     char opcion;
     do{
+        system("cls");
         mostrarModificacion(cm);
         fflush(stdin);
         opcion = getch();
@@ -200,23 +200,26 @@ nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes, stCliente cm)
                 break;
             }
             case Dos:{
-                printf("\n Ingrese nuevo valor : ");
-                scanf("%s", &cm.nombre );
+                printf("\n\t Ingrese nuevo valor : ");
+                fflush(stdin);
+                gets(cm.nombre);
                 break;
             }
             case Tres:{
-                printf("\n Ingrese nuevo valor : ");
-                scanf("%s", &cm.apellido);
+                printf("\n\t Ingrese nuevo valor : ");
+                fflush(stdin);
+                gets(cm.apellido);
                 break;
             }
             case Cuatro:{
-                printf("\n Ingrese nuevo valor : ");
-                scanf("%s", &cm.dni);
+                printf("\n\t Ingrese nuevo valor : ");
+                fflush(stdin);
+                gets(cm.dni);
                 break;
             }
             case Cinco:{
                 char valor[MAX_MAIL];
-                printf("\n Ingrese nuevo valor : ");
+                printf("\n\t Ingrese nuevo valor : ");
                 scanf("%s", &valor);
                 if(validaEmail(valor)){
                     strcpy(&cm.email, valor);
@@ -227,13 +230,15 @@ nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes, stCliente cm)
                 break;
             }
             case Seis:{
-                printf("\n Ingrese nuevo valor : ");
-                scanf("%s", &cm.domicilio);
+                printf("\n\t Ingrese nuevo valor : ");
+                fflush(stdin);
+                gets(cm.domicilio);
                 break;
             }
             case 55:{
-                printf("\n Ingrese nuevo valor : ");
-                scanf("%s", &cm.movil);
+                printf("\n\t Ingrese nuevo valor : ");
+                fflush(stdin);
+                gets(cm.movil);
                 break;
             }
             case 56:{
@@ -281,13 +286,14 @@ nodoArbol* modificarClienteArbol(nodoArbol* arbolClientes, stCliente c){
 nodoArbol* controlarModificacionCliente(nodoArbol* arbolClientes){
     nodoArbol* nodoCliente;
     int nroCliente = -1;
-    printf("Ingrese el Nro Cliente a modificar : ");
+    printf("\n\n\tIngrese el Nro Cliente a modificar : ");
     scanf("%d", &nroCliente);
+    system("cls");
     nodoCliente = buscarXNroCliente(arbolClientes, nroCliente);
     if(nodoCliente){
        arbolClientes = formularioModificacionCliente(arbolClientes, nodoCliente->dato);
     } else {
-        printf("El Nro Cliente ingresado no existe en el registro");
+        printf("\n\n\tEl Nro Cliente ingresado no existe en el registro");
         system("pause");
     }
 
@@ -301,31 +307,30 @@ nodoArbol* controlarModificacionCliente(nodoArbol* arbolClientes){
 void controlarModificacionConsumo(nodoArbol* arbolClientes){
     nodoArbol* nodoCliente;
     int nroCliente = -1;
-    printf("Ingrese el Nro Cliente del consumo a modificar : ");
+    printf("\n\n\tIngrese el Nro Cliente del consumo a modificar : ");
     scanf("%d", &nroCliente);
     nodoCliente = buscarXNroCliente(arbolClientes, nroCliente);
 
     if (nodoCliente){
 
         int anio = 0, mes = 0, dia = 0;
-        printf("\n Ingrese anio: --/--/----");
+        printf("\n\t Ingrese anio: --/--/----  ");
         scanf("%d", &anio);
-        printf("\n Ingrese mes : --/--/%d", anio);
+        printf("\n\t Ingrese mes : --/--/%d  ", anio);
         scanf("%d", &mes);
-        printf("\n Ingrese dia : --/%d/%d", mes, anio);
+        printf("\n\t Ingrese dia : --/%d/%d  ", mes, anio);
         scanf("%d", &dia);
 
         nodoLista * consumo = buscarConsumoXFecha(nodoCliente->consumos, anio, mes, dia);
         if (consumo) {
-            formularioModificacionConsumo(arbolClientes, nodoCliente->consumos, consumo);
-            //modificamos en archivo
+            formularioModificacionConsumo(arbolClientes, nodoCliente, consumo);
         } else {
-            printf("El consumo ingresado no existe en el registro");
+            printf("\n\tEl consumo ingresado no existe en el registro");
             system("pause");
         }
 
     } else {
-        printf("El Nro Cliente ingresado no existe en el registro");
+        printf("\n\tEl Nro Cliente ingresado no existe en el registro");
         system("pause");
     }
 
@@ -336,10 +341,11 @@ void controlarModificacionConsumo(nodoArbol* arbolClientes){
 * \brief Obtiene y valida los datos para la modificacion de un consumo
 * \param stConsumo consumo a modificar
 **************************************************************************/
-nodoLista * formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoLista * listaConsumos ,nodoLista * consumo){
+void formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoArbol * cliente ,nodoLista * consumo){
     stConsumo cm = consumo->dato;
     char opcion;
     do{
+        system("cls");
         mostrarModificacionConsumo(cm);
         fflush(stdin);
         opcion = getch();
@@ -401,16 +407,17 @@ nodoLista * formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoLista *
     if(opcion == 'c'){
         //volver a checkear fecha por si modifico mes/a�o despues del dia
         if(esFechaValida(cm.anio, cm.mes, cm.dia)){
+
             //esta todo ok, lo borro y lo doy de alta
-            listaConsumos = borrarNodo(listaConsumos, consumo);
+            cliente->consumos = borrarNodo(cliente->consumos, consumo);
             sumarONuevo(arbolClientes, cm);
+
         } else {
             printf("\n\n Error, fecha erronea! ..........(OK) \n\n\n\n\n\n\n\n\n\n");
             system("pause");
         }
     }
 
-    return listaConsumos;
 }
 
 
@@ -629,6 +636,83 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo){
 
 
 ///////////////// FUNCIONES DE VISUALIZACION ////////////////
+
+
+void mostrarArbolConsumosFiltrado(nodoArbol * arbolClientes, stFiltroConsumos filtro) {
+
+    if (arbolClientes)
+    {
+        mostrarArbolConsumosFiltrado(arbolClientes->izq, filtro);
+        if(arbolClientes->consumos){
+            muestraConsumosFiltrado(arbolClientes->consumos, arbolClientes->dato.nroCliente, filtro);
+        }
+        mostrarArbolConsumosFiltrado(arbolClientes->der, filtro);
+    }
+
+}
+
+void mostrarArbolConsumosMenu(nodoArbol * arbolCliente)
+{
+    char op;
+    stFiltroConsumos filtro;
+    limpiarFiltroConsumos(&filtro);
+
+    do
+    {
+        system("cls");
+        encabezadoEstadisticas();
+        mostrarHeaderConsumos();
+        mostrarArbolConsumosFiltrado(arbolCliente,  filtro);
+        mostrarFooterDeConsumo();
+
+        fflush(stdin);
+        op = getch();
+
+        switch(op)
+        {
+            case 49:
+                    limpiarFiltroConsumos(&filtro);
+
+                    break;
+            case 50:
+                    system("cls");
+                    controlarFiltrosConsumo(&filtro);
+
+                    break;
+            case 51:
+
+                    system("cls");
+                    liquidarConsumoDeCliente(arbolCliente);
+                    system("pause");
+
+                    break;
+            case Cuatro:
+
+                    system("cls");
+                    controlarModificacionConsumo(arbolCliente);
+
+                    break;
+
+        }
+    }while(op != ESC);
+}
+
+
+void liquidarConsumoDeCliente(nodoArbol * arbolClientes){
+
+    int nroCliente = -1;
+    printf("\n\n\tIngrese numero de cliente a liquidar: ");
+    scanf("%d", &nroCliente);
+    system("cls");
+    nodoArbol * cliente = buscarXNroCliente(arbolClientes, nroCliente);
+
+    if(cliente){
+        liquidacionMes(cliente->consumos);
+    } else {
+        printf("\tEl cliente ingresado no existe!");
+    }
+}
+
 
 
 /*************************************************************//**
@@ -962,7 +1046,7 @@ void controlarDetalleCliente(nodoArbol* arbolClientes){
     if(cliente) {
 
         printf("\n\n\n");
-
+        cartelInformacionCliente();
         headerDeCliente();
         mostrarUnCliente(cliente->dato);
         footerDeCliente();

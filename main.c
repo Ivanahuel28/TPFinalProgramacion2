@@ -5,61 +5,133 @@
 #include "arbolCliente.h"
 #include "aleatorios.h"
 
+
+nodoArbol * menuClientes(nodoArbol * arbolClientes);
+
 int main()
 {
     srand(time(NULL));
     nodoArbol* arbolClientes = inicArbol();
-/*
-    for(int i = 0; i < 10; i++){
-        stCliente c;
-        c.idCliente = i;
-        c.nroCliente = i;
 
-        FILE *pArchClientes = fopen(AR_CLIENTES, "ab");
-        if(pArchClientes){
-            fwrite(&c,sizeof(stCliente),1,pArchClientes);
-            fclose(pArchClientes);
-        }
-    }
-
-    for(int i = 0; i < 10; i++){
-        stConsumo c;
-        c.idCliente = i;
-        c.idConsumo = i;
-
-        FILE *pArchConsumos = fopen(AR_CONSUMOS, "ab");
-        if(pArchConsumos){
-            fwrite(&c,sizeof(stConsumo),1,pArchConsumos);
-            fclose(pArchConsumos);
-        }
-    }
+    generarArchivoClientesAleatorio(AR_CLIENTES, 50);
+    generarArchConsumosAleatorios(AR_CONSUMOS,AR_CLIENTES);
 
     arbolClientes = cargarArbolArchivos(AR_CLIENTES, AR_CONSUMOS, arbolClientes);
-    mostrarArbolClientes(arbolClientes);
-*/
 
-    //generarArchivoClientesAleatorio(AR_CLIENTES, 100);
-   arbolClientes = cargarArbolArchivos(AR_CLIENTES, AR_CONSUMOS, arbolClientes);
+    menuPrincipal(arbolClientes);
 
-   //arbolClientes = cargarClientesManual(arbolClientes);
-
-   //arbolClientes = controlarModificacionCliente(arbolClientes);
-   //arbolClientes = controlarBajaCliente(arbolClientes);
-   //mostrarArbolClientes(arbolClientes);
-   //menuListadoClientes(arbolClientes);
-
-    //controlarCargaManual(arbolClientes);
-
-
-    mostrarArbolClientesNuevo(arbolClientes);
-
-    //char valor[7] = "1234567";
-    /*int valor = 1234567;
-    char formateado[11] = "";
-    formatearCeldaEntero(valor,formateado,6);
-    printf("%s", formateado);*/
-    system("pause");
     return 0;
+}
+
+
+//////////// FUNCIONES DE VISUALIZACION ///////////////
+
+/**************************************************************************
+* \brief Imprime en pantalla las opciones del menu principal
+**************************************************************************/
+void mostrarMenuPrincipal(){
+    printf("\n SISTEMA DE CONTROL \n\n");
+    printf("\n 1) Clientes ");
+    printf("\n 2) Consumos ");
+    printf("\n\n\n (ESC) Salir");
+}
+
+/**************************************************************************
+* \brief Imprime en pantalla las opciones del menu de clientes
+**************************************************************************/
+void mostrarMenuClientes(){
+    printf("\n CLIENTES \n\n");
+    printf("\n 1) Agregar clientes ");
+    printf("\n 2) Visualizar clientes ");
+    printf("\n 3) Modificar un cliente ");
+    printf("\n 4) Dar de baja un cliente ");
+    printf("\n\n\n (ESC) Volver ");
+}
+
+/**************************************************************************
+* \brief Imprime en pantalla las opciones del menu de consumos
+**************************************************************************/
+void mostrarMenuConsumos(){
+    printf("\n CONSUMOS \n\n");
+    printf("\n 1) Agregar consumos ");
+    printf("\n 2) Visualizar consumos ");
+    printf("\n 3) Modificar un consumo / Dar de baja ");
+    printf("\n\n\n (ESC) Volver ");
+}
+
+//////////// FUNCIONES DE CONTROL ///////////////
+
+/**************************************************************************
+* \brief Maneja el menu principal, redirije a submenus
+**************************************************************************/
+void menuPrincipal(nodoArbol * arbolClientes){
+    char opcion;
+    do{
+        system("cls");
+        mostrarMenuPrincipal();
+        opcion = getch();
+        system("cls");
+        switch(opcion){
+            case 49:
+                arbolClientes = menuClientes(arbolClientes);
+                break;
+            case 50:
+                menuConsumos(arbolClientes);
+                break;
+        }
+    }while(opcion != ESC);
+}
+
+/**************************************************************************
+* \brief Maneja el menu de consumos, llama las funciones principales de consumos
+**************************************************************************/
+void menuConsumos(nodoArbol * arbolClientes){
+    char opcion;
+    do{
+        system("cls");
+        mostrarMenuConsumos();
+        opcion = getch();
+        system("cls");
+        switch(opcion){
+            case 49:
+                controlarCargaManual(arbolClientes);
+                break;
+            case 50:
+                mostrarArbolConsumosMenu(arbolClientes);
+                break;
+            case 51:
+                controlarModificacionConsumo(arbolClientes);
+                break;
+        }
+    }while(opcion != ESC);
+}
+
+/**************************************************************************
+* \brief Maneja el menu de clientes, llama las funciones principales de clientes
+**************************************************************************/
+nodoArbol * menuClientes(nodoArbol * arbolClientes){
+    char opcion;
+    do{
+        system("cls");
+        mostrarMenuClientes();
+        opcion = getch();
+        system("cls");
+        switch(opcion){
+            case 49:
+                arbolClientes = cargarClientesManual(arbolClientes);
+                break;
+            case 50:
+                mostrarArbolClientesNuevo(arbolClientes);
+                break;
+            case 51:
+                arbolClientes = controlarModificacionCliente(arbolClientes);
+                break;
+            case Cuatro:
+                controlarBajaCliente(arbolClientes);
+                break;
+        }
+    }while(opcion != ESC);
+    return arbolClientes;
 }
 
 

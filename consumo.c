@@ -54,16 +54,13 @@ void modificarConsumo(stConsumo c) {
 **************************************************************************/
 void mostrarModificacionConsumo(stConsumo c){
 
-    printf("\n ----------------------------------------");
-    //printf("\n -) ID consumo .............:  %d", c.id);
-    //printf("\n -) ID Cliente .............:  %d", c.idCliente);
-    //printf("\n 1) Nro Cliente .............: %d", c.nroCliente);
-    printf("\n 2) Anio ....................: %d", c.anio);
-    printf("\n 3) Mes .....................: %d", c.mes);
-    printf("\n 4) Dia .....................: %d", c.dia);
-    printf("\n 5) Datos comsumidos ........: %d MB", c.datosConsumidos);
-    printf("\n 6) Baja ....................: %s", (c.baja) ? "SI" : "NO" );
-    printf("\n\n\n Cancelar (ESC)   |    Confirmar (c)");
+    printf("\n\t ----------------------------------------");
+    printf("\n\t 1) Anio ....................: %d", c.anio);
+    printf("\n\t 2) Mes .....................: %d", c.mes);
+    printf("\n\t 3) Dia .....................: %d", c.dia);
+    printf("\n\t 4) Datos comsumidos ........: %d MB", c.datosConsumidos);
+    printf("\n\t 5) Baja ....................: %s", (c.baja) ? "SI" : "NO" );
+    printf("\n\t Cancelar (ESC)   |    Confirmar (c)\n\n");
 
 }
 
@@ -93,19 +90,56 @@ int buscaPosConsumos(int id){
     return pos;
 }
 
+/**************************************************************************
+* \brief Muestra opciones de filtros por pantalla
+**************************************************************************/
+void mostrarFiltrosConsumos(){
+    printf("\n\n\t ----------- FILTRAR POR ---------------");
+    printf("\n\t ----------------------------------------");
+    printf("\n\t 1) Nro Cliente .........: ");
+    printf("\n\t 2) Dia .................: ");
+    printf("\n\t 3) Mes .................: ");
+    printf("\n\t 4) Anio ................: ");
+    printf("\n\t 5) Datos Minimos .......: ");
+    printf("\n\t 6) Datos Maximos .......: ");
+    printf("\n\t 7) Baja ................: ");
+    printf("\n\n\n\t Cancelar (ESC)     ");
+
+}
+
+
 /******************************************
 * \brief Muestra un consumo por pantalla
 * \param stConsumo Consumo a mostrar
 ********************************************/
-void mostrarUnConsumo(stConsumo c){
-    //Esta funcion deberia trabajar sobre un arreglo, por que asi es ineficiente, es algo a laburar luego la optimizacion.
-    //int nroCliente = obtenerNroClientePorID(c.idCliente);
-    printf("\n ----------------------------------------");
-    printf("\n ID consumo .............:  %d", c.idConsumo);
-    printf("\n ID Cliente .............:  %d", c.idCliente);
-    //printf("\n Nro Cliente .............: %d", c.nroCliente);
-    printf("\n Fecha (dia - mes - anio) : %d-%d-%d ", c.dia, c.mes, c.anio);
-    printf("\n Datos comsumidos ........: %d MB", c.datosConsumidos);
-    printf("\n Baja ....................: %s", (c.baja) ? "SI" : "NO" );
+void mostrarUnConsumo(stConsumo c, int nroCliente){
+        char fechaCompleta[30] = "";
+        char anio[10] = "";
+        char mes[4] = "";
+        char dia[4] = "";
+
+        itoa(c.anio, anio, 10);
+        itoa(c.mes, mes, 10);
+        itoa(c.dia, dia, 10);
+
+        strcat(fechaCompleta, dia);
+        strcat(fechaCompleta, "/");
+        strcat(fechaCompleta, mes);
+        strcat(fechaCompleta, "/");
+        strcat(fechaCompleta, anio);
+
+        char fechaCompletaF[30] = "";
+        formatearCeldaString(fechaCompleta,fechaCompletaF, 16);
+
+        char nroClienteF[30] = "";
+        formatearCeldaEntero(nroCliente,nroClienteF, 14);
+
+        char datosConsumidosF[30] = "";
+        formatearCeldaEntero(c.datosConsumidos,datosConsumidosF, 13);
+
+        char bajaF[30] = "";
+        formatearCeldaString(c.baja ? "SI" : "NO", bajaF, 12);
+
+        printf("%s%s|%s%s%s%s\n", TAB, TAB, nroClienteF, fechaCompletaF ,datosConsumidosF , bajaF);
 
 }

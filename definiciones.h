@@ -5,6 +5,7 @@
 #define MAX_NOMBRE 30
 #define MAX_MAIL 30
 #define MAX_DOM 45
+#define NRO_CLIENTES_RANDOM 50
 
 enum bool
 {

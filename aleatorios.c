@@ -10,14 +10,14 @@
 *****************************************************************/
 void generarArchivoClientesAleatorio(char nomArch[],int n)
 {
-	FILE *pArch = fopen(nomArch,"ab");
+	FILE *pArch = fopen(nomArch,"wb");
 	int nuevoId = ultimoIdCliente() + 1 ;
 
 	if (pArch)
 	{
 	    stCliente cliente;
 
-	    for(int i=0 ; i<n ; i++)
+	    for(int i=1 ; i<=n ; i++)
 	    {
 	        cliente = getClienteRandom();
 

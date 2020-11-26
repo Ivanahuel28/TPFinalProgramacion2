@@ -30,9 +30,12 @@ stCliente cargaManualUnCliente(nodoArbol* arbolClientes);
 nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo);
 
 /*MUESTRA / RECORRIDO*/
+void mostrarArbolConsumosFiltrado(nodoArbol * arbolClientes, stFiltroConsumos filtro);
+void mostrarArbolConsumosMenu(nodoArbol * arbolCliente);
 void mostrarArbolClientes(nodoArbol * arbol);
 void footerDeCliente();
 void controlarDetalleCliente(nodoArbol* arbolClientes);
+void liquidarConsumoDeCliente(nodoArbol * arbolClientes);
 /*BAJA*/
 void darDeBajaCliente(nodoArbol* nodoCliente);
 void controlarBajaCliente(nodoArbol* arbolClientes);
@@ -41,7 +44,7 @@ void controlarBajaCliente(nodoArbol* arbolClientes);
 nodoArbol* modificarClienteArbol(nodoArbol* arbolClientes, stCliente c);
 nodoArbol* formularioModificacionCliente(nodoArbol* arbolClientes,stCliente cm);
 nodoArbol* controlarModificacionCliente(nodoArbol* arbolClientes);
-nodoLista * formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoLista * listaConsumos ,nodoLista * consumo);
+void formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoArbol * cliente ,nodoLista * consumo);
 
 /*BUSQUEDA*/
 nodoArbol * buscarXNroCliente(nodoArbol * arbol,int nroCliente);
@@ -56,17 +59,6 @@ int contarNiveles(nodoArbol * arbol);
 nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente);
 nodoArbol * NMD(nodoArbol * arbol);
 nodoArbol * NMI(nodoArbol * arbol);
-
-
-/*MENU LISTADO CLIENTES*/
-void menuListadoClientes(nodoArbol * arbol);
-
-void menuMostrarFiltrando(nodoArbol * arbol);
-
-void mostrarFiltrandoXApellido(nodoArbol * arbol,char apellido[]);
-void mostrarFiltrandoXNombre(nodoArbol * arbol,char nombre[]);
-void mostrarFiltrandoXEstado(nodoArbol * arbol,int estado);
-
 
 typedef struct
 {

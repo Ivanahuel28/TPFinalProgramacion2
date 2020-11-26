@@ -43,7 +43,7 @@ int validaEmail(char email[]){
 **************************************************************************/
 int obtenerInt(){
     int valor;
-    printf("\n Ingrese nuevo valor : ");
+    printf("\n\t Ingrese nuevo valor : ");
     scanf("%d", &valor);
     return valor;
 }
@@ -54,16 +54,16 @@ int obtenerInt(){
 **************************************************************************/
 void mostrarModificacion(stCliente c) {
 
-    printf("\n ----------------------------------------");
-    printf("\n 1) Nro Cliente ......: %d", c.nroCliente);
-    printf("\n 2) Nombre ...........: %s", c.nombre);
-    printf("\n 3) Apellido .........: %s", c.apellido);
-    printf("\n 4) DNI ..............: %s", c.dni);
-    printf("\n 5) Email ............: %s", c.email);
-    printf("\n 6) Domicilio ........: %s", c.domicilio);
-    printf("\n 7) Movil ............: %s", c.movil);
-    printf("\n 8) Baja .............: %s", (c.baja) ? "SI" : "NO" );
-    printf("\n\n\n Cancelar (ESC)   |    Confirmar (c)");
+    printf("\n\n\t ----------------------------------------");
+    printf("\n\t 1) Nro Cliente ......: %d", c.nroCliente);
+    printf("\n\t 2) Nombre ...........: %s", c.nombre);
+    printf("\n\t 3) Apellido .........: %s", c.apellido);
+    printf("\n\t 4) DNI ..............: %s", c.dni);
+    printf("\n\t 5) Email ............: %s", c.email);
+    printf("\n\t 6) Domicilio ........: %s", c.domicilio);
+    printf("\n\t 7) Movil ............: %s", c.movil);
+    printf("\n\t 8) Baja .............: %s", (c.baja) ? "SI" : "NO" );
+    printf("\n\n\n\t Cancelar (ESC)   |    Confirmar (c)");
 }
 
 
@@ -127,6 +127,12 @@ int ultimoIdCliente() {
     return id;
 }
 
+
+void cartelInformacionCliente(){
+    printf("\n%s%s                                     INFORMACION DEL CLIENTE                                  ", TAB, TAB);
+}
+
+
 /*************************************************************//**
 *
 * \brief Muestra las opciones de visualizacion como encabezado
@@ -148,7 +154,7 @@ void encabezado()
 *****************************************************************/
 void footerDeCliente()
 {
-    printf("%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
+    printf("%s---------------------------------------------------------------------------------------------------------------------------------\n", TAB);
 }
 
 /*************************************************************//**
@@ -158,11 +164,11 @@ void footerDeCliente()
 *****************************************************************/
 void headerDeCliente()
 {
-    printf("\n%s-------------------------------------------------------------------------------------------------------------------------", TAB);
-    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
-    printf("\n%s| Nro Cliente |     Nombre     |     Apellido     |    DNI   |        Email        |    Domicilio    |   Movil   | Baja |", TAB);
-    printf("\n%s|             |                |                  |          |                     |                 |           |      |", TAB);
-    printf("\n%s-------------------------------------------------------------------------------------------------------------------------\n", TAB);
+    printf("\n%s---------------------------------------------------------------------------------------------------------------------------------", TAB);
+    printf("\n%s|             |                |                  |          |                         |                     |           |      |", TAB);
+    printf("\n%s| Nro Cliente |     Nombre     |     Apellido     |    DNI   |          Email          |      Domicilio      |   Movil   | Baja |", TAB);
+    printf("\n%s|             |                |                  |          |                         |                     |           |      |", TAB);
+    printf("\n%s---------------------------------------------------------------------------------------------------------------------------------\n", TAB);
 
 }
 
@@ -171,17 +177,17 @@ void headerDeCliente()
 ********************************************************************/
 void mostrarFiltros() {
 
-    printf("\n ----------- FILTRAR POR ---------------");
-    printf("\n ----------------------------------------");
-    printf("\n 1) Nro Cliente ......: ");
-    printf("\n 2) Nombre ...........: ");
-    printf("\n 3) Apellido .........: ");
-    printf("\n 4) DNI ..............: ");
-    printf("\n 5) Email ............: ");
-    printf("\n 6) Domicilio ........: ");
-    printf("\n 7) Movil ............: ");
-    printf("\n 8) Baja .............: ");
-    printf("\n\n\n Cancelar (ESC)     ");
+    printf("\n\n\t ----------- FILTRAR POR ---------------");
+    printf("\n\t ----------------------------------------");
+    printf("\n\t 1) Nro Cliente ......: ");
+    printf("\n\t 2) Nombre ...........: ");
+    printf("\n\t 3) Apellido .........: ");
+    printf("\n\t 4) DNI ..............: ");
+    printf("\n\t 5) Email ............: ");
+    printf("\n\t 6) Domicilio ........: ");
+    printf("\n\t 7) Movil ............: ");
+    printf("\n\t 8) Baja .............: ");
+    printf("\n\n\n\t Cancelar (ESC)     \n\n\n");
 
 }
 
@@ -205,10 +211,10 @@ void mostrarUnCliente(stCliente c){
     formatearCeldaString(c.dni,dniF, 11);
 
     char emailF[30] = "";
-    formatearCeldaString("ivazquez@hotmail.com",emailF, 22);
+    formatearCeldaString(c.email,emailF, 26);
 
     char domicilioF[30] = "";
-    formatearCeldaString(c.domicilio,domicilioF, 18);
+    formatearCeldaString(c.domicilio,domicilioF, 22);
 
     char movilF[30] = "";
     formatearCeldaString(c.movil,movilF, 12);
