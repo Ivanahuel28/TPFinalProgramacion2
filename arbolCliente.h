@@ -1,7 +1,6 @@
 #ifndef ARBOLCLIENTE_H_INCLUDED
 #define ARBOLCLIENTE_H_INCLUDED
 #define AR_CLIENTES "clientes.dat"
-#define TAB "\t\t"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +17,23 @@ typedef struct{
     struct nodoArbol* der;
 }nodoArbol;
 
+typedef struct
+{
+    char nroCliente[30];
+    char nombre[30];
+    char apellido[30];
+    char dni[15];
+    char email[30];
+    char domicilio[45];
+    char movil[15];
+    int baja;
+
+    int activado;
+}stFiltro;
+
+void limpiarFiltro(stFiltro * filtro);
+void controlarFiltros(stFiltro * filtro);
+
 /*BASICAS*/
 nodoArbol * inicArbol();
 nodoArbol * crearNodoArbol(stCliente dato);
@@ -33,7 +49,8 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo);
 void mostrarArbolConsumosFiltrado(nodoArbol * arbolClientes, stFiltroConsumos filtro);
 void mostrarArbolConsumosMenu(nodoArbol * arbolCliente);
 void mostrarArbolClientes(nodoArbol * arbol);
-void footerDeCliente();
+void mostrarArbolClientesNuevo(nodoArbol * arbol);
+void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro);
 void controlarDetalleCliente(nodoArbol* arbolClientes);
 void liquidarConsumoDeCliente(nodoArbol * arbolClientes);
 /*BAJA*/
@@ -50,33 +67,12 @@ void formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoArbol * client
 nodoArbol * buscarXNroCliente(nodoArbol * arbol,int nroCliente);
 nodoArbol * buscarXidClienteDiferido(nodoArbol * arbol,int idCliente);
 
-/*CONTADORES*/
-int contarElementos(nodoArbol * arbol);
-int contarTerminales(nodoArbol * arbol);
-int contarNiveles(nodoArbol * arbol);
 
 /*BORRAR*/
 nodoArbol * borrarXNroCliente(nodoArbol * arbol,int nroCliente);
 nodoArbol * NMD(nodoArbol * arbol);
 nodoArbol * NMI(nodoArbol * arbol);
 
-typedef struct
-{
-    char nroCliente[30];
-    char nombre[30];
-    char apellido[30];
-    char dni[15];
-    char email[30];
-    char domicilio[45];
-    char movil[15];
-    int baja;
 
-    int activado;
-}stFiltro;
-
-void limpiarFiltro(stFiltro * filtro);
-void mostrarArbolClientesNuevo(nodoArbol * arbol);
-void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro);
-void controlarFiltros(stFiltro * filtro);
 
 #endif // ARBOLCLIENTE_H_INCLUDED

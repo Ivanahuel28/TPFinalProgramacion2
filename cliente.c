@@ -1,7 +1,5 @@
 #include "cliente.h"
 
-///////////////// FUNCIONES DE ALTA /////////////////
-
 
 /**************************************************************************
 * \brief Funcion que agrega un cliente al archivo de clientes
@@ -35,7 +33,6 @@ int validaEmail(char email[]){
     return flag;
 }
 
-///////////////// FUNCIONES DE MODIFICACION /////////////////
 
 /**************************************************************************
 * \brief Funcion que obtiene un valor entero cualquiera manualmente
@@ -63,7 +60,7 @@ void mostrarModificacion(stCliente c) {
     printf("\n\t 6) Domicilio ........: %s", c.domicilio);
     printf("\n\t 7) Movil ............: %s", c.movil);
     printf("\n\t 8) Baja .............: %s", (c.baja) ? "SI" : "NO" );
-    printf("\n\n\n\t Cancelar (ESC)   |    Confirmar (c)");
+    printf("\n\n\n\t Cancelar (ESC)   |    Confirmar (c)\n");
 }
 
 
@@ -82,7 +79,6 @@ void modificarClienteArchivo(stCliente c) {
     }
 }
 
-///////////////// FUNCIONES DE BUSQUEDA /////////////////
 
 /*************************************************************************
 *
@@ -127,7 +123,11 @@ int ultimoIdCliente() {
     return id;
 }
 
-
+/*************************************************************//**
+*
+* \brief Muestra el cartel informacion del cliente
+*
+*****************************************************************/
 void cartelInformacionCliente(){
     printf("\n%s%s                                     INFORMACION DEL CLIENTE                                  ", TAB, TAB);
 }
@@ -227,10 +227,10 @@ void mostrarUnCliente(stCliente c){
 
 /*************************************************************//**
 *
-* \brief Formatea un entero para que entre dentro de un tamaño especifico y le pone un separador
+* \brief Formatea un entero para que entre dentro de un tamaï¿½o especifico y le pone un separador
 * \param int valor entero a formatear
 * \param char string al que pasar el valor formateado
-* \param int tamaño al que formatear el valor
+* \param int tamaï¿½o al que formatear el valor
 *
 *****************************************************************/
 void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
@@ -268,10 +268,10 @@ void formatearCeldaEntero(int valor, char formateado[], int tamanoMaximo) {
 
 /*************************************************************//**
 *
-* \brief Formatea un entero para que entre dentro de un tamaño especifico y le pone un separador
+* \brief Formatea un entero para que entre dentro de un tamaï¿½o especifico y le pone un separador
 * \param char string a formatear
 * \param char string al que pasar el valor formateado
-* \param int tamaño al que formatear el valor
+* \param int tamaï¿½o al que formatear el valor
 *
 *****************************************************************/
 void formatearCeldaString(char valor[], char formateado[] ,int tamanoMaximo) {

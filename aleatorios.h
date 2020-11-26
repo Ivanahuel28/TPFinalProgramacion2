@@ -4,7 +4,7 @@
 #include "cliente.h"
 #include "consumo.h"
 
-/// ARCHIVO DE CLIENTES
+///////////// ARCHIVO DE CLIENTES /////////////
 void generarArchivoClientesAleatorio(char nomArch[],int n);
 stCliente getClienteRandom();
 void getApellido(char apellido[]);
@@ -14,7 +14,7 @@ void getEMail(char email[],stCliente cliente);
 void getDomicilio(char domicilio[]);
 void getMovil(char movil[]);
 
-/// ARCHIVO DE CONSUMOS
+///////////// ARCHIVO DE CONSUMOS /////////////
 void generarArchConsumosAleatorios(char nomArchConsumos[],char nomArchClientes[]);
 int getArrConsumosAleatorios(stConsumo arr[],int idCliente,int nuevoIdConsumos);
 

@@ -107,6 +107,25 @@ void mostrarFiltrosConsumos(){
 
 }
 
+void mostrarFooterDeConsumo() {
+    printf("%s%s--------------------------------------------------------\n", TAB, TAB);
+}
+
+void mostrarHeaderConsumos() {
+    printf("%s%s--------------------------------------------------------\n", TAB, TAB);
+    printf("%s%s| NRO CLIENTE |     FECHA     |     MB     |    BAJA   |\n", TAB, TAB);
+    printf("%s%s--------------------------------------------------------\n", TAB, TAB);
+}
+
+
+void encabezadoEstadisticas(){
+    printf("\n\t\t-----------------------------------------------------------------------------------------");
+    printf("\n\t\t|                                                                                       |");
+    printf("\n\t\t|(1) VER TODO  | (2) FILTRAR | (3) LIQUIDAR MES | (4) MODIFICAR CONSUMO | (ESC) SALIR   |");
+    printf("\n\t\t|                                                                                       |");
+    printf("\n\t\t-----------------------------------------------------------------------------------------\n");
+}
+
 
 /******************************************
 * \brief Muestra un consumo por pantalla

@@ -1,37 +1,16 @@
 #ifndef LISTACONSUMO_H_INCLUDED
 #define LISTACONSUMO_H_INCLUDED
-#define AR_CONSUMOS "consumos.dat"
-#define TAB "\t\t"
-#define ESC 27
+
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "definiciones.h"
 #include "consumo.h"
 
 typedef struct{
     stConsumo dato;
     struct nodoLista * siguiente;
 }nodoLista;
-
-nodoLista * inicLista();
-nodoLista * crearNodo(stConsumo dato);
-nodoLista * agregarPpio (nodoLista * lista, nodoLista * nuevoNodo);
-nodoLista * buscarUltimo(nodoLista * lista);
-nodoLista * buscarConsumoXFecha(nodoLista * lista,int anio,int mes,int dia);
-nodoLista * agregarFinal(nodoLista * lista,nodoLista * nuevoNodo);
-nodoLista * borrarNodo(nodoLista* lista,nodoLista * nodo);
-nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo);
-nodoLista * borrarTodaLaLista(nodoLista * lista);
-void darDeBajaListaConsumos(nodoLista * lista);
-nodoLista * eliminarPrimerNodo(nodoLista * lista);
-stConsumo verPrimero(nodoLista * lista);
-void encabezadoEstadisticas();
-
-int gastosTotales(nodoLista* consumos);
-int gastoMinimo(nodoLista* consumos);
-int gastoMaximo(nodoLista* consumos);
-void muestraEstadisticas(nodoLista * listaConsumos);
-void muestraConsumos(nodoLista * consumos);
 
 typedef struct
 {
@@ -46,6 +25,29 @@ typedef struct
     int activado;
 }stFiltroConsumos;
 void limpiarFiltroConsumos(stFiltroConsumos * filtro);
+void controlarFiltrosConsumo(stFiltroConsumos * filtro);
+
+nodoLista * inicLista();
+nodoLista * crearNodo(stConsumo dato);
+nodoLista * agregarEnOrden(nodoLista * lista, nodoLista * nuevoNodo);
+
+nodoLista * buscarConsumoXFecha(nodoLista * lista,int anio,int mes,int dia);
+
+nodoLista * borrarNodo(nodoLista* lista,nodoLista * nodo);
+
+void darDeBajaListaConsumos(nodoLista * lista);
+
+void muestraEstadisticas(nodoLista * listaConsumos);
+void muestraConsumos(nodoLista * consumos);
+void muestraConsumosFiltrado(nodoLista * consumos, int nroCliente, stFiltroConsumos filtro);
+
+int gastosTotales(nodoLista* consumos);
+int gastoMinimo(nodoLista* consumos);
+int gastoMaximo(nodoLista* consumos);
+void liquidacionMes(nodoLista* consumos);
+int sumaConsumosXMes(nodoLista* consumos, int mes);
+int ingresarMes();
+
 
 
 #endif // LISTACONSUMO_H_INCLUDED

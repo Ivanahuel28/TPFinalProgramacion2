@@ -32,8 +32,7 @@ nodoArbol * crearNodoArbol(stCliente dato)
 
 
 
-///////////////// FUNCIONES DE ALTA /////////////////
-
+///////////////// FUNCIONES DE ALTA CLIENTES /////////////////
 /**************************************************************************
 * \brief Funcion que maneja la carga de clientes manuales
 * \param nodoArbol arbol de clientes al que se debe cargar el cliente
@@ -100,6 +99,7 @@ stCliente cargaManualUnCliente(nodoArbol* arbolClientes) {
 }
 
 
+///////////////// FUNCIONES DE ALTA CONSUMOS /////////////////
 
 /**************************************************************************
 * \brief Funcion que ingresa un consumo de forma manual y lo retorna
@@ -140,6 +140,7 @@ stConsumo cargaManualUnConsumo(nodoArbol * arbolClientes) {
 
 /**************************************************************************
 * \brief Funcion que carga un consumo completo al archivo
+* \param nodoArbol arbol de clientes al que cargar el consumo
 **************************************************************************/
 void controlarCargaManual(nodoArbol * arbolClientes){
 
@@ -149,6 +150,11 @@ void controlarCargaManual(nodoArbol * arbolClientes){
 
 
 
+/**************************************************************************
+* \brief Funcion que define si el consumo debe ser agregado como nuevo o modificado
+* \param nodoArbol arbol de clientes del consumo
+* \param stConsumo consumo a evaluar e ingresar / modificar
+**************************************************************************/
 void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
 
     nodoArbol * cliente = buscarXidClienteDiferido(arbolClientes, c.idCliente);
@@ -172,7 +178,7 @@ void sumarONuevo(nodoArbol * arbolClientes,stConsumo c) {
 
 
 
-///////////////// FUNCIONES DE MODIFICACION /////////////////
+///////////////// FUNCIONES DE MODIFICACION CLIENTE /////////////////
 
 /**************************************************************************
 * \brief Funcion formulario para la modificacion de un cliente con validacion de datos
@@ -301,8 +307,11 @@ nodoArbol* controlarModificacionCliente(nodoArbol* arbolClientes){
 }
 
 
+///////////////// FUNCIONES DE MODIFICACION CLIENTE /////////////////
+
 /**************************************************************************
 * \brief Funcion que controla la modificacion de un consumo
+* \param nodoArbol arbol de clientes del que modificar el consumo
 **************************************************************************/
 void controlarModificacionConsumo(nodoArbol* arbolClientes){
     nodoArbol* nodoCliente;
@@ -339,7 +348,9 @@ void controlarModificacionConsumo(nodoArbol* arbolClientes){
 
 /**************************************************************************
 * \brief Obtiene y valida los datos para la modificacion de un consumo
-* \param stConsumo consumo a modificar
+* \param nodoArbol arbol de clientes del que modificar el consumo
+* \param nodoArbol nodo de cliente del que modificar el consumo
+* \param nodoLista consumo a modificar
 **************************************************************************/
 void formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoArbol * cliente ,nodoLista * consumo){
     stConsumo cm = consumo->dato;
@@ -424,7 +435,7 @@ void formularioModificacionConsumo(nodoArbol * arbolClientes ,nodoArbol * client
 
 
 
-///////////////// FUNCIONES DE BAJA /////////////////
+///////////////// FUNCIONES DE BAJA CONSUMO /////////////////
 
 /**************************************************************************
 * \brief Funcion que controla la baja de un consumo del arbol de clientes y del archivo
@@ -462,6 +473,8 @@ void controlarBajaConsumo(nodoArbol * arbolClientes) {
     }
 }
 
+
+///////////////// FUNCIONES DE BAJA CLIENTE /////////////////
 
 /**************************************************************************
 * \brief Da de baja un cliente y sus consumos
@@ -635,9 +648,13 @@ nodoArbol* agregarNodoArbol(nodoArbol* arbol, nodoArbol* nuevo){
 }
 
 
-///////////////// FUNCIONES DE VISUALIZACION ////////////////
+///////////////// FUNCIONES DE VISUALIZACION CONSUMOS ////////////////
 
-
+/*************************************************************//**
+* \brief Muestra los consumos de un arbol con un filtro
+* \param nodoArbol arbol a mostrar
+* \param stFiltroConsumos filtro a usar
+*****************************************************************/
 void mostrarArbolConsumosFiltrado(nodoArbol * arbolClientes, stFiltroConsumos filtro) {
 
     if (arbolClientes)
@@ -651,6 +668,10 @@ void mostrarArbolConsumosFiltrado(nodoArbol * arbolClientes, stFiltroConsumos fi
 
 }
 
+/*************************************************************//**
+* \brief Muestra y controla el menu de visualizacion de consumos
+* \param nodoArbol arbol a mostrar
+*****************************************************************/
 void mostrarArbolConsumosMenu(nodoArbol * arbolCliente)
 {
     char op;
@@ -698,21 +719,46 @@ void mostrarArbolConsumosMenu(nodoArbol * arbolCliente)
 }
 
 
-void liquidarConsumoDeCliente(nodoArbol * arbolClientes){
+///////////////// FUNCIONES DE VISUALIZACION CLIENTES ////////////////
 
-    int nroCliente = -1;
-    printf("\n\n\tIngrese numero de cliente a liquidar: ");
-    scanf("%d", &nroCliente);
-    system("cls");
-    nodoArbol * cliente = buscarXNroCliente(arbolClientes, nroCliente);
+/*************************************************************//**
+*
+* \brief Mustra el arbol de clientes usando un filtro
+* \param nodoArbol* puntero a la raiz del arbol a mostrar
+* \param stFiltro* filtro a usar
+*
+*****************************************************************/
+void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro)
+{
+    if (arbol)
+    {
+        if ( !filtro.activado )
+        {
+            mostrarUnCliente(arbol->dato);
+        }
+        else
+        {
+            char stringNroCliente[30];
 
-    if(cliente){
-        liquidacionMes(cliente->consumos);
-    } else {
-        printf("\tEl cliente ingresado no existe!");
+            itoa(arbol->dato.nroCliente,stringNroCliente,10);
+
+            if ( strncmp(arbol->dato.apellido,filtro.apellido,strlen(filtro.apellido)) == 0 &&
+                 strncmp(arbol->dato.nombre,filtro.nombre,strlen(filtro.nombre)) == 0 &&
+                 strncmp(arbol->dato.dni,filtro.dni,strlen(filtro.dni)) == 0 &&
+                 strncmp(arbol->dato.domicilio,filtro.domicilio,strlen(filtro.domicilio)) == 0 &&
+                 strncmp(arbol->dato.email,filtro.email,strlen(filtro.email)) == 0 &&
+                 strncmp(arbol->dato.movil,filtro.movil,strlen(filtro.movil)) == 0  &&
+                 ( arbol->dato.baja == filtro.baja || filtro.baja == -1 ) &&
+                 strncmp(stringNroCliente,filtro.nroCliente,strlen(filtro.nroCliente)) == 0 )
+            {
+                mostrarUnCliente(arbol->dato);
+            }
+        }
+
+        mostrarArbolClientesFiltrado(arbol->izq,filtro);
+        mostrarArbolClientesFiltrado(arbol->der,filtro);
     }
 }
-
 
 
 /*************************************************************//**
@@ -855,86 +901,29 @@ nodoArbol * buscarXidClienteDiferido(nodoArbol * arbol,int idCliente)
 
     return retorno;
 }
+
+
 ///////////////// FUNCIONES DE CALCULO /////////////////
 
 /*************************************************************//**
-*
-* \brief cuenta la cantidad de elementos
-* \param nodoArbol * arbol - puntero a la raiz del arbol
-* \return int contador -  cantidad de elementos del arbol
-*
+* \brief Liquida un mes de consumo de un cliente del arbol
+* \param nodoArbol arbol en el que se encuentra el cliente
 *****************************************************************/
-int contarElementos(nodoArbol * arbol)
-{
-    int contador = 0;
+void liquidarConsumoDeCliente(nodoArbol * arbolClientes){
 
-    if (arbol)
-    {
-        contador += 1 + contarElementos(arbol->izq) + contarElementos(arbol->der);
+    int nroCliente = -1;
+    printf("\n\n\tIngrese numero de cliente a liquidar: ");
+    scanf("%d", &nroCliente);
+    system("cls");
+    nodoArbol * cliente = buscarXNroCliente(arbolClientes, nroCliente);
+
+    if(cliente){
+        liquidacionMes(cliente->consumos);
+    } else {
+        printf("\tEl cliente ingresado no existe!");
     }
-
-    return contador;
 }
 
-/*************************************************************//**
-*
-* \brief cuenta las terminales (u hojas del arbol)
-* \param nodoArbol * arbol - puntero a la raiz del arbol
-* \return int cantidad de hojas
-*
-*****************************************************************/
-int contarTerminales(nodoArbol * arbol)
-{
-    int retorno = 0;
-
-    if (arbol)
-    {
-        if ( !(arbol->izq) && !(arbol->der) )
-        {
-            retorno += 1;
-        }
-        else
-        {
-            retorno += contarTerminales(arbol->izq);
-            retorno += contarTerminales(arbol->der);
-        }
-    }
-
-    return retorno;
-}
-
-/*************************************************************//**
-*
-* \brief cuenta los niveles (o altura) del arbol
-* \param nodoArbol * arbol - puntero a la raiz del arbol
-* \return int cantidad de niveles
-*
-*****************************************************************/
-int contarNiveles(nodoArbol * arbol)
-{
-    int nivel = 0;
-
-    if (arbol)
-    {
-        if ( (arbol->izq) || (arbol->der) )
-        {
-            nivel += 1;
-            int nivelIzq = contarNiveles(arbol->izq);
-            int nivelDer = contarNiveles(arbol->der);
-
-            if ( nivelIzq < nivelDer)
-            {
-                nivel += nivelDer;
-            }
-            else
-            {
-                nivel += nivelIzq;
-            }
-        }
-    }
-
-    return nivel;
-}
 
 ///////////////// FUNCIONES DE ELIMINACION /////////////////
 
@@ -1087,45 +1076,6 @@ void limpiarFiltro(stFiltro * filtro)
     filtro->activado = 0;
 }
 
-
-/*************************************************************//**
-*
-* \brief Mustra el arbol de clientes usando un filtro
-* \param nodoArbol* puntero a la raiz del arbol a mostrar
-* \param stFiltro* filtro a usar
-*
-*****************************************************************/
-void mostrarArbolClientesFiltrado(nodoArbol * arbol,stFiltro filtro)
-{
-    if (arbol)
-    {
-        if ( !filtro.activado )
-        {
-            mostrarUnCliente(arbol->dato);
-        }
-        else
-        {
-            char stringNroCliente[30];
-
-            itoa(arbol->dato.nroCliente,stringNroCliente,10);
-
-            if ( strncmp(arbol->dato.apellido,filtro.apellido,strlen(filtro.apellido)) == 0 &&
-                 strncmp(arbol->dato.nombre,filtro.nombre,strlen(filtro.nombre)) == 0 &&
-                 strncmp(arbol->dato.dni,filtro.dni,strlen(filtro.dni)) == 0 &&
-                 strncmp(arbol->dato.domicilio,filtro.domicilio,strlen(filtro.domicilio)) == 0 &&
-                 strncmp(arbol->dato.email,filtro.email,strlen(filtro.email)) == 0 &&
-                 strncmp(arbol->dato.movil,filtro.movil,strlen(filtro.movil)) == 0  &&
-                 ( arbol->dato.baja == filtro.baja || filtro.baja == -1 ) &&
-                 strncmp(stringNroCliente,filtro.nroCliente,strlen(filtro.nroCliente)) == 0 )
-            {
-                mostrarUnCliente(arbol->dato);
-            }
-        }
-
-        mostrarArbolClientesFiltrado(arbol->izq,filtro);
-        mostrarArbolClientesFiltrado(arbol->der,filtro);
-    }
-}
 
 
 /*****************************************************

@@ -6,15 +6,28 @@
 #include "aleatorios.h"
 
 
+void menuPrincipal(nodoArbol * arbolClientes);
+void menuConsumos(nodoArbol * arbolClientes);
 nodoArbol * menuClientes(nodoArbol * arbolClientes);
+
+void mostrarMenuPrincipal();
+void mostrarMenuClientes();
+void mostrarMenuConsumos();
+
+
 
 int main()
 {
     srand(time(NULL));
     nodoArbol* arbolClientes = inicArbol();
 
-    generarArchivoClientesAleatorio(AR_CLIENTES, 50);
-    generarArchConsumosAleatorios(AR_CONSUMOS,AR_CLIENTES);
+    int opcion = -1;
+    printf("\n\n\tBienvenido, desea generar datos nuevos?\n\t(1) - SI  |  (0) - NO\n\n");
+    scanf("%d", &opcion);
+    if(opcion == 1){
+        generarArchivoClientesAleatorio(AR_CLIENTES, 50);
+        generarArchConsumosAleatorios(AR_CONSUMOS,AR_CLIENTES);
+    }
 
     arbolClientes = cargarArbolArchivos(AR_CLIENTES, AR_CONSUMOS, arbolClientes);
 
@@ -24,13 +37,15 @@ int main()
 }
 
 
+
+
 //////////// FUNCIONES DE VISUALIZACION ///////////////
 
 /**************************************************************************
 * \brief Imprime en pantalla las opciones del menu principal
 **************************************************************************/
 void mostrarMenuPrincipal(){
-    printf("\n SISTEMA DE CONTROL \n\n");
+    imprimirCabecera("SISTEMA DE CONTROL");
     printf("\n 1) Clientes ");
     printf("\n 2) Consumos ");
     printf("\n\n\n (ESC) Salir");
@@ -40,7 +55,7 @@ void mostrarMenuPrincipal(){
 * \brief Imprime en pantalla las opciones del menu de clientes
 **************************************************************************/
 void mostrarMenuClientes(){
-    printf("\n CLIENTES \n\n");
+    imprimirCabecera("CLIENTES");
     printf("\n 1) Agregar clientes ");
     printf("\n 2) Visualizar clientes ");
     printf("\n 3) Modificar un cliente ");
@@ -52,11 +67,33 @@ void mostrarMenuClientes(){
 * \brief Imprime en pantalla las opciones del menu de consumos
 **************************************************************************/
 void mostrarMenuConsumos(){
-    printf("\n CONSUMOS \n\n");
+    imprimirCabecera("CONSUMOS");
     printf("\n 1) Agregar consumos ");
     printf("\n 2) Visualizar consumos ");
     printf("\n 3) Modificar un consumo / Dar de baja ");
     printf("\n\n\n (ESC) Volver ");
+}
+
+
+/****************************************
+* \brief Imprime Cabecera
+***************************************/
+void imprimirCabecera(char cabecera[])
+{
+    int i;
+    printf("%c", 201);
+    for(i=0; i<45; i++)
+    {
+        printf("%c",205);
+    }
+    printf("%c\n", 187);
+    printf("%c%29s%17c\n", 186,cabecera,186);
+    printf("%c", 200);
+    for(i=0; i<45; i++)
+    {
+        printf("%c",205);
+    }
+    printf("%c", 188);
 }
 
 //////////// FUNCIONES DE CONTROL ///////////////

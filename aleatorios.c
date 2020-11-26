@@ -41,18 +41,6 @@ stCliente getClienteRandom()
 {
 	stCliente aux;
 
-	/*
-    int idCliente; /// campo �nico y autoincremental
-    int nroCliente;
-    char nombre[30];
-    char apellido[30];
-    char dni[15];
-    char email[30];
-    char domicilio[45];
-    char movil[15];
-    int baja; /// 0 si est� activo - 1 si est� de baja
-	*/
-
 	getApellido(aux.apellido);
 	getNombre(aux.nombre);
 	getDNI(aux.dni);
@@ -103,8 +91,6 @@ void getNombre(char nombre[])
 *
 *****************************************************************/
 void getDNI(char dni[]){
-
-    //dni[0]='\0';
 
     itoa((rand()%(368-208)+208) * (rand()%(368-208)+208) * (rand()%(368-208)+208),dni,10); // de 50 a 9 millones
 }

@@ -1,10 +1,10 @@
 #ifndef CONSUMO_H_INCLUDED
 #define CONSUMO_H_INCLUDED
-#define TAB "\t\t"
+
 
 #include <stdio.h>
 #include <stdlib.h>
-#define AR_CONSUMOS "consumos.dat"
+#include "definiciones.h"
 
 
 typedef struct{
@@ -22,6 +22,8 @@ void modificarConsumo(stConsumo c);
 void agregarUnConsumo(stConsumo c);
 int ultimoIdConsumos();
 void mostrarUnConsumo(stConsumo c, int nroCliente);
-
+void encabezadoEstadisticas();
+void mostrarFooterDeConsumo();
+void mostrarHeaderConsumos();
 
 #endif // CONSUMO_H_INCLUDED

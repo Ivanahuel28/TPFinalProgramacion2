@@ -1,6 +1,9 @@
 #ifndef DEFINICIONES_H_INCLUDED
 #define DEFINICIONES_H_INCLUDED
 
+#define AR_CONSUMOS "consumos.dat"
+#define AR_CLIENTES "clientes.dat"
+#define TAB "\t\t"
 #define ESC 27
 #define MAX_NOMBRE 30
 #define MAX_MAIL 30

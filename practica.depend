@@ -103,7 +103,7 @@
 1605990439 c:\users\usuario\desktop\tp final\estadisticas.h
 	"arbolCliente.h"
 
-1606348551 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.c
+1606348881 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.c
 	"arbolCliente.h"
 
 1606346611 c:\users\ignacio\desktop\2 cuatrimestre\tp final\arbolcliente.h
@@ -114,25 +114,28 @@
 	"listaConsumo.h"
 	"definiciones.h"
 
-1606274158 c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.h
+1606426550 c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.h
+	"definiciones.h"
 	<stdio.h>
 	<stdlib.h>
 
-1606339310 c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.h
+1606426618 c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.h
 	<stdio.h>
 	<stdlib.h>
+	"definiciones.h"
 	"consumo.h"
 
-1606339220 c:\users\ignacio\desktop\2 cuatrimestre\tp final\consumo.h
+1606426575 c:\users\ignacio\desktop\2 cuatrimestre\tp final\consumo.h
 	<stdio.h>
 	<stdlib.h>
+	"definiciones.h"
 
-1606345579 c:\users\ignacio\desktop\2 cuatrimestre\tp final\definiciones.h
+1606426553 c:\users\ignacio\desktop\2 cuatrimestre\tp final\definiciones.h
 
-1606347031 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.c
+1606425449 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\cliente.c
 	"cliente.h"
 
-1606348551 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\consumo.c
+1606425736 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\consumo.c
 	"consumo.h"
 
 1606272955 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\estadisticas.c
@@ -151,20 +154,20 @@
 	<stdlib.h>
 	"definiciones.h"
 
-1606341289 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.c
+1606426229 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\listaconsumo.c
 	"listaConsumo.h"
 
-1606348454 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\main.c
+1606424365 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\main.c
 	<stdio.h>
 	<stdlib.h>
 	"fechas.h"
 	"arbolCliente.h"
 	"aleatorios.h"
 
-1606347728 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\aleatorios.c
+1606424582 source:c:\users\ignacio\desktop\2 cuatrimestre\tp final\aleatorios.c
 	"aleatorios.h"
 
-1606335400 c:\users\ignacio\desktop\2 cuatrimestre\tp final\aleatorios.h
+1606424602 c:\users\ignacio\desktop\2 cuatrimestre\tp final\aleatorios.h
 	"cliente.h"
 	"consumo.h"
 
